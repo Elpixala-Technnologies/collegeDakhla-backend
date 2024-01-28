@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "colleges",
+  "info": {
+    "singularName": "college",
+    "pluralName": "colleges",
+    "displayName": "College"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "integer"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "approvedBy": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Public",
+        "Private"
+      ]
+    },
+    "fees": {
+      "type": "biginteger"
+    },
+    "course": {
+      "type": "enumeration",
+      "enum": [
+        "BE/B.Tech",
+        "M.Tech",
+        "MBA/PGDM",
+        "BCA"
+      ]
+    }
+  }
+}

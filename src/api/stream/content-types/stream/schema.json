@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "streams",
+  "info": {
+    "singularName": "stream",
+    "pluralName": "streams",
+    "displayName": "Stream",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Description of the stream"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "Enter name of the stream"
+    }
+  }
+}
