@@ -786,21 +786,40 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
   info: {
     singularName: 'college';
     pluralName: 'colleges';
-    displayName: 'College';
+    displayName: 'college';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    city: Attribute.String;
+    url: Attribute.String;
+    college_type: Attribute.Relation<
+      'api::college.college',
+      'oneToOne',
+      'api::college-type.college-type'
+    >;
+    collegeName: Attribute.String;
+    country: Attribute.String;
     state: Attribute.String;
-    rank: Attribute.Integer;
-    rating: Attribute.Decimal;
-    approvedBy: Attribute.String;
-    type: Attribute.Enumeration<['Public', 'Private']>;
-    fees: Attribute.BigInteger;
-    course: Attribute.Enumeration<['BE/B.Tech', 'M.Tech', 'MBA/PGDM', 'BCA']>;
+    collegeLogo: Attribute.Media;
+    collegeStream: Attribute.Relation<
+      'api::college.college',
+      'oneToOne',
+      'api::stream.stream'
+    >;
+    pincode: Attribute.String;
+    establishmentYear: Attribute.String;
+    rankedBy: Attribute.Relation<
+      'api::college.college',
+      'oneToMany',
+      'api::ranking-body.ranking-body'
+    >;
+    approvedBy: Attribute.Relation<
+      'api::college.college',
+      'oneToMany',
+      'api::organization.organization'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -819,24 +838,146 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
   };
 }
 
-export interface ApiStreamStream extends Schema.CollectionType {
-  collectionName: 'streams';
+export interface ApiCollegeTypeCollegeType extends Schema.CollectionType {
+  collectionName: 'college_types';
   info: {
-    singularName: 'stream';
-    pluralName: 'streams';
-    displayName: 'Stream';
+    singularName: 'college-type';
+    pluralName: 'college-types';
+    displayName: 'collegeType';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    description: Attribute.Text &
-      Attribute.Required &
-      Attribute.DefaultTo<'Description of the stream'>;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Enter name of the stream'>;
+    type: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::college-type.college-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::college-type.college-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrganizationOrganization extends Schema.CollectionType {
+  collectionName: 'organizations';
+  info: {
+    singularName: 'organization';
+    pluralName: 'organizations';
+    displayName: 'organization';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    college: Attribute.Relation<
+      'api::organization.organization',
+      'manyToOne',
+      'api::college.college'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRankingBodyRankingBody extends Schema.CollectionType {
+  collectionName: 'ranking_bodies';
+  info: {
+    singularName: 'ranking-body';
+    pluralName: 'ranking-bodies';
+    displayName: 'rankingBody';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    college: Attribute.Relation<
+      'api::ranking-body.ranking-body',
+      'manyToOne',
+      'api::college.college'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ranking-body.ranking-body',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ranking-body.ranking-body',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStreamStream extends Schema.CollectionType {
+  collectionName: 'streams';
+  info: {
+    singularName: 'stream';
+    pluralName: 'streams';
+    displayName: 'stream';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    streamName: Attribute.String;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    stream: Attribute.Relation<
+      'api::stream.stream',
+      'oneToOne',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -874,6 +1015,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::college.college': ApiCollegeCollege;
+      'api::college-type.college-type': ApiCollegeTypeCollegeType;
+      'api::organization.organization': ApiOrganizationOrganization;
+      'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
       'api::stream.stream': ApiStreamStream;
     }
   }

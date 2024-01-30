@@ -1,18 +1,17 @@
 {
   "kind": "collectionType",
-  "collectionName": "streams",
+  "collectionName": "organizations",
   "info": {
-    "singularName": "stream",
-    "pluralName": "streams",
-    "displayName": "stream",
-    "description": ""
+    "singularName": "organization",
+    "pluralName": "organizations",
+    "displayName": "organization"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "streamName": {
+    "name": {
       "type": "string"
     },
     "description": {
@@ -22,11 +21,11 @@
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "stream": {
+    "college": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::college.college",
-      "mappedBy": "collegeStream"
+      "inversedBy": "approvedBy"
     }
   }
 }

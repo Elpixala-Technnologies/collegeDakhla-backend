@@ -4,49 +4,65 @@
   "info": {
     "singularName": "college",
     "pluralName": "colleges",
-    "displayName": "College"
+    "displayName": "college",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "url": {
       "type": "string"
     },
-    "city": {
+    "college_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::college-type.college-type"
+    },
+    "collegeName": {
+      "type": "string"
+    },
+    "country": {
       "type": "string"
     },
     "state": {
       "type": "string"
     },
-    "rank": {
-      "type": "integer"
+    "collegeLogo": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
-    "rating": {
-      "type": "decimal"
+    "collegeStream": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stream.stream",
+      "inversedBy": "stream"
     },
-    "approvedBy": {
+    "pincode": {
       "type": "string"
     },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "Public",
-        "Private"
-      ]
+    "establishmentYear": {
+      "type": "string"
     },
-    "fees": {
-      "type": "biginteger"
+    "rankedBy": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ranking-body.ranking-body",
+      "mappedBy": "college"
     },
-    "course": {
-      "type": "enumeration",
-      "enum": [
-        "BE/B.Tech",
-        "M.Tech",
-        "MBA/PGDM",
-        "BCA"
-      ]
+    "approvedBy": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::organization.organization",
+      "mappedBy": "college"
     }
   }
 }
