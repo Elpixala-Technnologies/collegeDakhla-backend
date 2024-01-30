@@ -820,6 +820,7 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'oneToMany',
       'api::organization.organization'
     >;
+    city: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

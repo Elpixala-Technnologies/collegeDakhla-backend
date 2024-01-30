@@ -63,6 +63,9 @@
       "relation": "oneToMany",
       "target": "api::organization.organization",
       "mappedBy": "college"
+    },
+    "city": {
+      "type": "string"
     }
   }
 }
