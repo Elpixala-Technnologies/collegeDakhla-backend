@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "course_url": {
+      "type": "string"
+    },
+    "course_link": {
+      "type": "string"
+    },
+    "course_logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "course_types": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course-type.course-type",
+      "mappedBy": "course"
+    }
+  }
+}

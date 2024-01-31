@@ -870,6 +870,82 @@ export interface ApiCollegeTypeCollegeType extends Schema.CollectionType {
   };
 }
 
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    course_url: Attribute.String;
+    course_link: Attribute.String;
+    course_logo: Attribute.Media;
+    course_types: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::course-type.course-type'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseTypeCourseType extends Schema.CollectionType {
+  collectionName: 'course_types';
+  info: {
+    singularName: 'course-type';
+    pluralName: 'course-types';
+    displayName: 'courseType';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    fees: Attribute.String;
+    eligibility: Attribute.String;
+    application_date: Attribute.Date;
+    course: Attribute.Relation<
+      'api::course-type.course-type',
+      'manyToOne',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course-type.course-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course-type.course-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrganizationOrganization extends Schema.CollectionType {
   collectionName: 'organizations';
   info: {
@@ -1017,6 +1093,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::college.college': ApiCollegeCollege;
       'api::college-type.college-type': ApiCollegeTypeCollegeType;
+      'api::course.course': ApiCourseCourse;
+      'api::course-type.course-type': ApiCourseTypeCourseType;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
       'api::stream.stream': ApiStreamStream;

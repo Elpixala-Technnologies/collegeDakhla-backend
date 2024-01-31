@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_types",
+  "info": {
+    "singularName": "course-type",
+    "pluralName": "course-types",
+    "displayName": "courseType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "fees": {
+      "type": "string"
+    },
+    "eligibility": {
+      "type": "string"
+    },
+    "application_date": {
+      "type": "date"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "course_types"
+    }
+  }
+}
