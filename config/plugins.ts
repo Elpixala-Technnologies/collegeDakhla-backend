@@ -18,6 +18,11 @@ module.exports = ({ env }) => ({
 		enabled: true,
 		config: {
 			endpoint: '/graphql',
+			generateArtifacts: true,
+			artifacts: {
+				schema: true,
+				typegen: true
+			},
 			shadowCRUD: true,
 			playgroundAlways: true,
 			depthLimit: 7,
