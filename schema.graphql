@@ -30,7 +30,7 @@ input BooleanFilterInput {
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
   city: String
-  collegeLogo(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  collegeLogo: UploadFileEntityResponse
   collegeName: String
   collegeStream: StreamEntityResponse
   college_type: CollegeTypeEntityResponse
@@ -83,7 +83,7 @@ input CollegeFiltersInput {
 input CollegeInput {
   approvedBy: [ID]
   city: String
-  collegeLogo: [ID]
+  collegeLogo: ID
   collegeName: String
   collegeStream: ID
   college_type: ID
