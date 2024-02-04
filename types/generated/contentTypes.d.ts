@@ -821,6 +821,13 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::organization.organization'
     >;
     city: Attribute.String;
+    collegeDescription: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

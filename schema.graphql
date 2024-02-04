@@ -30,6 +30,7 @@ input BooleanFilterInput {
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
   city: String
+  collegeDescription: String
   collegeLogo: UploadFileEntityResponse
   collegeName: String
   collegeStream: StreamEntityResponse
@@ -63,6 +64,7 @@ input CollegeFiltersInput {
   and: [CollegeFiltersInput]
   approvedBy: OrganizationFiltersInput
   city: StringFilterInput
+  collegeDescription: StringFilterInput
   collegeName: StringFilterInput
   collegeStream: StreamFiltersInput
   college_type: CollegeTypeFiltersInput
@@ -83,6 +85,7 @@ input CollegeFiltersInput {
 input CollegeInput {
   approvedBy: [ID]
   city: String
+  collegeDescription: String
   collegeLogo: ID
   collegeName: String
   collegeStream: ID
