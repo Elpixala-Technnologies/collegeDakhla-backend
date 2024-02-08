@@ -40,12 +40,6 @@
         "audios"
       ]
     },
-    "collegeStream": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::stream.stream",
-      "inversedBy": "stream"
-    },
     "pincode": {
       "type": "string"
     },
@@ -73,6 +67,12 @@
         "preset": "toolbar"
       },
       "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "collegeStreams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stream.stream",
+      "mappedBy": "streams"
     }
   }
 }

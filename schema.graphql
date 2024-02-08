@@ -33,7 +33,7 @@ type College {
   collegeDescription: String
   collegeLogo: UploadFileEntityResponse
   collegeName: String
-  collegeStream: StreamEntityResponse
+  collegeStreams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
   college_type: CollegeTypeEntityResponse
   country: String
   createdAt: DateTime
@@ -66,7 +66,7 @@ input CollegeFiltersInput {
   city: StringFilterInput
   collegeDescription: StringFilterInput
   collegeName: StringFilterInput
-  collegeStream: StreamFiltersInput
+  collegeStreams: StreamFiltersInput
   college_type: CollegeTypeFiltersInput
   country: StringFilterInput
   createdAt: DateTimeFilterInput
@@ -88,7 +88,7 @@ input CollegeInput {
   collegeDescription: String
   collegeLogo: ID
   collegeName: String
-  collegeStream: ID
+  collegeStreams: [ID]
   college_type: ID
   country: String
   establishmentYear: String
@@ -823,8 +823,8 @@ type Stream {
   createdAt: DateTime
   description: String
   publishedAt: DateTime
-  stream: CollegeEntityResponse
   streamName: String
+  streams(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -850,16 +850,16 @@ input StreamFiltersInput {
   not: StreamFiltersInput
   or: [StreamFiltersInput]
   publishedAt: DateTimeFilterInput
-  stream: CollegeFiltersInput
   streamName: StringFilterInput
+  streams: CollegeFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input StreamInput {
   description: String
   publishedAt: DateTime
-  stream: ID
   streamName: String
+  streams: [ID]
 }
 
 type StreamRelationResponseCollection {

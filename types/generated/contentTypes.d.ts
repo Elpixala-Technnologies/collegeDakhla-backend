@@ -803,11 +803,6 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
     country: Attribute.String;
     state: Attribute.String;
     collegeLogo: Attribute.Media;
-    collegeStream: Attribute.Relation<
-      'api::college.college',
-      'oneToOne',
-      'api::stream.stream'
-    >;
     pincode: Attribute.String;
     establishmentYear: Attribute.String;
     rankedBy: Attribute.Relation<
@@ -828,6 +823,11 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
+    collegeStreams: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::stream.stream'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1057,9 +1057,9 @@ export interface ApiStreamStream extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
-    stream: Attribute.Relation<
+    streams: Attribute.Relation<
       'api::stream.stream',
-      'oneToOne',
+      'manyToMany',
       'api::college.college'
     >;
     createdAt: Attribute.DateTime;

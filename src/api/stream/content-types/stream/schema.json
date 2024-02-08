@@ -22,11 +22,11 @@
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "stream": {
+    "streams": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToMany",
       "target": "api::college.college",
-      "mappedBy": "collegeStream"
+      "inversedBy": "collegeStreams"
     }
   }
 }
