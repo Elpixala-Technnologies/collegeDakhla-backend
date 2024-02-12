@@ -27,6 +27,50 @@ input BooleanFilterInput {
   startsWith: Boolean
 }
 
+type City {
+  createdAt: DateTime
+  name: String
+  publishedAt: DateTime
+  state: StateEntityResponse
+  updatedAt: DateTime
+}
+
+type CityEntity {
+  attributes: City
+  id: ID
+}
+
+type CityEntityResponse {
+  data: CityEntity
+}
+
+type CityEntityResponseCollection {
+  data: [CityEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input CityFiltersInput {
+  and: [CityFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: CityFiltersInput
+  or: [CityFiltersInput]
+  publishedAt: DateTimeFilterInput
+  state: StateFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input CityInput {
+  name: String
+  publishedAt: DateTime
+  state: ID
+}
+
+type CityRelationResponseCollection {
+  data: [CityEntity!]!
+}
+
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
   city: String
@@ -236,6 +280,50 @@ type ContentReleasesReleaseRelationResponseCollection {
   data: [ContentReleasesReleaseEntity!]!
 }
 
+type Country {
+  createdAt: DateTime
+  name: String
+  publishedAt: DateTime
+  states(filters: StateFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StateRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type CountryEntity {
+  attributes: Country
+  id: ID
+}
+
+type CountryEntityResponse {
+  data: CountryEntity
+}
+
+type CountryEntityResponseCollection {
+  data: [CountryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input CountryFiltersInput {
+  and: [CountryFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: CountryFiltersInput
+  or: [CountryFiltersInput]
+  publishedAt: DateTimeFilterInput
+  states: StateFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input CountryInput {
+  name: String
+  publishedAt: DateTime
+  states: [ID]
+}
+
+type CountryRelationResponseCollection {
+  data: [CountryEntity!]!
+}
+
 type Course {
   course_link: String
   course_logo: UploadFileEntityResponse
@@ -439,7 +527,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = College | CollegeType | ContentReleasesRelease | ContentReleasesReleaseAction | Course | CourseType | I18NLocale | Organization | RankingBody | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
@@ -598,14 +686,17 @@ input LongFilterInput {
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  createCity(data: CityInput!): CityEntityResponse
   createCollege(data: CollegeInput!): CollegeEntityResponse
   createCollegeType(data: CollegeTypeInput!): CollegeTypeEntityResponse
   createContentReleasesRelease(data: ContentReleasesReleaseInput!): ContentReleasesReleaseEntityResponse
   createContentReleasesReleaseAction(data: ContentReleasesReleaseActionInput!): ContentReleasesReleaseActionEntityResponse
+  createCountry(data: CountryInput!): CountryEntityResponse
   createCourse(data: CourseInput!): CourseEntityResponse
   createCourseType(data: CourseTypeInput!): CourseTypeEntityResponse
   createOrganization(data: OrganizationInput!): OrganizationEntityResponse
   createRankingBody(data: RankingBodyInput!): RankingBodyEntityResponse
+  createState(data: StateInput!): StateEntityResponse
   createStream(data: StreamInput!): StreamEntityResponse
   createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
   createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
@@ -615,14 +706,17 @@ type Mutation {
 
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+  deleteCity(id: ID!): CityEntityResponse
   deleteCollege(id: ID!): CollegeEntityResponse
   deleteCollegeType(id: ID!): CollegeTypeEntityResponse
   deleteContentReleasesRelease(id: ID!): ContentReleasesReleaseEntityResponse
   deleteContentReleasesReleaseAction(id: ID!): ContentReleasesReleaseActionEntityResponse
+  deleteCountry(id: ID!): CountryEntityResponse
   deleteCourse(id: ID!): CourseEntityResponse
   deleteCourseType(id: ID!): CourseTypeEntityResponse
   deleteOrganization(id: ID!): OrganizationEntityResponse
   deleteRankingBody(id: ID!): RankingBodyEntityResponse
+  deleteState(id: ID!): StateEntityResponse
   deleteStream(id: ID!): StreamEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
@@ -649,15 +743,18 @@ type Mutation {
   Reset user password. Confirm with a code (resetToken from forgotPassword)
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  updateCity(data: CityInput!, id: ID!): CityEntityResponse
   updateCollege(data: CollegeInput!, id: ID!): CollegeEntityResponse
   updateCollegeType(data: CollegeTypeInput!, id: ID!): CollegeTypeEntityResponse
   updateContentReleasesRelease(data: ContentReleasesReleaseInput!, id: ID!): ContentReleasesReleaseEntityResponse
   updateContentReleasesReleaseAction(data: ContentReleasesReleaseActionInput!, id: ID!): ContentReleasesReleaseActionEntityResponse
+  updateCountry(data: CountryInput!, id: ID!): CountryEntityResponse
   updateCourse(data: CourseInput!, id: ID!): CourseEntityResponse
   updateCourseType(data: CourseTypeInput!, id: ID!): CourseTypeEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateOrganization(data: OrganizationInput!, id: ID!): OrganizationEntityResponse
   updateRankingBody(data: RankingBodyInput!, id: ID!): RankingBodyEntityResponse
+  updateState(data: StateInput!, id: ID!): StateEntityResponse
   updateStream(data: StreamInput!, id: ID!): StreamEntityResponse
   updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
   updateUploadFolder(data: UploadFolderInput!, id: ID!): UploadFolderEntityResponse
@@ -737,6 +834,8 @@ enum PublicationState {
 }
 
 type Query {
+  cities(filters: CityFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CityEntityResponseCollection
+  city(id: ID): CityEntityResponse
   college(id: ID): CollegeEntityResponse
   collegeType(id: ID): CollegeTypeEntityResponse
   collegeTypes(filters: CollegeTypeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeTypeEntityResponseCollection
@@ -745,6 +844,8 @@ type Query {
   contentReleasesReleaseAction(id: ID): ContentReleasesReleaseActionEntityResponse
   contentReleasesReleaseActions(filters: ContentReleasesReleaseActionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ContentReleasesReleaseActionEntityResponseCollection
   contentReleasesReleases(filters: ContentReleasesReleaseFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ContentReleasesReleaseEntityResponseCollection
+  countries(filters: CountryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CountryEntityResponseCollection
+  country(id: ID): CountryEntityResponse
   course(id: ID): CourseEntityResponse
   courseType(id: ID): CourseTypeEntityResponse
   courseTypes(filters: CourseTypeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseTypeEntityResponseCollection
@@ -756,6 +857,8 @@ type Query {
   organizations(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationEntityResponseCollection
   rankingBodies(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyEntityResponseCollection
   rankingBody(id: ID): RankingBodyEntityResponse
+  state(id: ID): StateEntityResponse
+  states(filters: StateFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StateEntityResponseCollection
   stream(id: ID): StreamEntityResponse
   streams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse
@@ -817,6 +920,53 @@ type RankingBodyRelationResponseCollection {
 
 type ResponseCollectionMeta {
   pagination: Pagination!
+}
+
+type State {
+  cities(filters: CityFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CityRelationResponseCollection
+  country: CountryEntityResponse
+  createdAt: DateTime
+  name: String
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type StateEntity {
+  attributes: State
+  id: ID
+}
+
+type StateEntityResponse {
+  data: StateEntity
+}
+
+type StateEntityResponseCollection {
+  data: [StateEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input StateFiltersInput {
+  and: [StateFiltersInput]
+  cities: CityFiltersInput
+  country: CountryFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: StateFiltersInput
+  or: [StateFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input StateInput {
+  cities: [ID]
+  country: ID
+  name: String
+  publishedAt: DateTime
+}
+
+type StateRelationResponseCollection {
+  data: [StateEntity!]!
 }
 
 type Stream {

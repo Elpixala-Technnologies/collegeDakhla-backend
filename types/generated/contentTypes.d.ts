@@ -781,6 +781,33 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCityCity extends Schema.CollectionType {
+  collectionName: 'cities';
+  info: {
+    singularName: 'city';
+    pluralName: 'cities';
+    displayName: 'city';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    state: Attribute.Relation<
+      'api::city.city',
+      'manyToOne',
+      'api::state.state'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCollegeCollege extends Schema.CollectionType {
   collectionName: 'colleges';
   info: {
@@ -870,6 +897,41 @@ export interface ApiCollegeTypeCollegeType extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::college-type.college-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCountryCountry extends Schema.CollectionType {
+  collectionName: 'countries';
+  info: {
+    singularName: 'country';
+    pluralName: 'countries';
+    displayName: 'country';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    states: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::state.state'
+    >;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::country.country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::country.country',
       'oneToOne',
       'admin::user'
     > &
@@ -1037,6 +1099,46 @@ export interface ApiRankingBodyRankingBody extends Schema.CollectionType {
   };
 }
 
+export interface ApiStateState extends Schema.CollectionType {
+  collectionName: 'states';
+  info: {
+    singularName: 'state';
+    pluralName: 'states';
+    displayName: 'state';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    cities: Attribute.Relation<
+      'api::state.state',
+      'oneToMany',
+      'api::city.city'
+    >;
+    country: Attribute.Relation<
+      'api::state.state',
+      'manyToOne',
+      'api::country.country'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::state.state',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::state.state',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStreamStream extends Schema.CollectionType {
   collectionName: 'streams';
   info: {
@@ -1098,12 +1200,15 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::city.city': ApiCityCity;
       'api::college.college': ApiCollegeCollege;
       'api::college-type.college-type': ApiCollegeTypeCollegeType;
+      'api::country.country': ApiCountryCountry;
       'api::course.course': ApiCourseCourse;
       'api::course-type.course-type': ApiCourseTypeCourseType;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
+      'api::state.state': ApiStateState;
       'api::stream.stream': ApiStreamStream;
     }
   }
