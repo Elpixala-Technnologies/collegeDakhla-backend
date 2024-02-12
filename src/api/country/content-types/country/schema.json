@@ -19,6 +19,12 @@
     },
     "name": {
       "type": "string"
+    },
+    "colleges": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::college.college",
+      "mappedBy": "countries"
     }
   }
 }

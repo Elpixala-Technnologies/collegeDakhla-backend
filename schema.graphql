@@ -73,19 +73,21 @@ type CityRelationResponseCollection {
 
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
-  city: String
+  banner: UploadFileEntityResponse
+  brochure: UploadFileEntityResponse
+  city: CityEntityResponse
   collegeDescription: String
   collegeLogo: UploadFileEntityResponse
   collegeName: String
   collegeStreams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
   college_type: CollegeTypeEntityResponse
-  country: String
+  countries(filters: CountryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CountryRelationResponseCollection
   createdAt: DateTime
   establishmentYear: String
-  pincode: String
+  pincode: Int!
   publishedAt: DateTime
   rankedBy(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyRelationResponseCollection
-  state: String
+  states(filters: StateFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StateRelationResponseCollection
   updatedAt: DateTime
   url: String
 }
@@ -107,39 +109,41 @@ type CollegeEntityResponseCollection {
 input CollegeFiltersInput {
   and: [CollegeFiltersInput]
   approvedBy: OrganizationFiltersInput
-  city: StringFilterInput
+  city: CityFiltersInput
   collegeDescription: StringFilterInput
   collegeName: StringFilterInput
   collegeStreams: StreamFiltersInput
   college_type: CollegeTypeFiltersInput
-  country: StringFilterInput
+  countries: CountryFiltersInput
   createdAt: DateTimeFilterInput
   establishmentYear: StringFilterInput
   id: IDFilterInput
   not: CollegeFiltersInput
   or: [CollegeFiltersInput]
-  pincode: StringFilterInput
+  pincode: IntFilterInput
   publishedAt: DateTimeFilterInput
   rankedBy: RankingBodyFiltersInput
-  state: StringFilterInput
+  states: StateFiltersInput
   updatedAt: DateTimeFilterInput
   url: StringFilterInput
 }
 
 input CollegeInput {
   approvedBy: [ID]
-  city: String
+  banner: ID
+  brochure: ID
+  city: ID
   collegeDescription: String
   collegeLogo: ID
   collegeName: String
   collegeStreams: [ID]
   college_type: ID
-  country: String
+  countries: [ID]
   establishmentYear: String
-  pincode: String
+  pincode: Int
   publishedAt: DateTime
   rankedBy: [ID]
-  state: String
+  states: [ID]
   url: String
 }
 
@@ -281,6 +285,7 @@ type ContentReleasesReleaseRelationResponseCollection {
 }
 
 type Country {
+  colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   createdAt: DateTime
   name: String
   publishedAt: DateTime
@@ -304,6 +309,7 @@ type CountryEntityResponseCollection {
 
 input CountryFiltersInput {
   and: [CountryFiltersInput]
+  colleges: CollegeFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   name: StringFilterInput
@@ -315,6 +321,7 @@ input CountryFiltersInput {
 }
 
 input CountryInput {
+  colleges: [ID]
   name: String
   publishedAt: DateTime
   states: [ID]
@@ -924,6 +931,7 @@ type ResponseCollectionMeta {
 
 type State {
   cities(filters: CityFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CityRelationResponseCollection
+  college: CollegeEntityResponse
   country: CountryEntityResponse
   createdAt: DateTime
   name: String
@@ -948,6 +956,7 @@ type StateEntityResponseCollection {
 input StateFiltersInput {
   and: [StateFiltersInput]
   cities: CityFiltersInput
+  college: CollegeFiltersInput
   country: CountryFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
@@ -960,6 +969,7 @@ input StateFiltersInput {
 
 input StateInput {
   cities: [ID]
+  college: ID
   country: ID
   name: String
   publishedAt: DateTime
@@ -970,8 +980,11 @@ type StateRelationResponseCollection {
 }
 
 type Stream {
+  colleges_description: String
+  courses_description: String
   createdAt: DateTime
   description: String
+  logo: UploadFileEntityResponse
   publishedAt: DateTime
   streamName: String
   streams(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
@@ -994,6 +1007,8 @@ type StreamEntityResponseCollection {
 
 input StreamFiltersInput {
   and: [StreamFiltersInput]
+  colleges_description: StringFilterInput
+  courses_description: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   id: IDFilterInput
@@ -1006,7 +1021,10 @@ input StreamFiltersInput {
 }
 
 input StreamInput {
+  colleges_description: String
+  courses_description: String
   description: String
+  logo: ID
   publishedAt: DateTime
   streamName: String
   streams: [ID]

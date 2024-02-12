@@ -787,6 +787,7 @@ export interface ApiCityCity extends Schema.CollectionType {
     singularName: 'city';
     pluralName: 'cities';
     displayName: 'city';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -826,11 +827,8 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'oneToOne',
       'api::college-type.college-type'
     >;
-    collegeName: Attribute.String;
-    country: Attribute.String;
-    state: Attribute.String;
+    collegeName: Attribute.String & Attribute.Unique;
     collegeLogo: Attribute.Media;
-    pincode: Attribute.String;
     establishmentYear: Attribute.String;
     rankedBy: Attribute.Relation<
       'api::college.college',
@@ -842,7 +840,6 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'oneToMany',
       'api::organization.organization'
     >;
-    city: Attribute.String;
     collegeDescription: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
@@ -855,6 +852,24 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'manyToMany',
       'api::stream.stream'
     >;
+    city: Attribute.Relation<
+      'api::college.college',
+      'oneToOne',
+      'api::city.city'
+    >;
+    states: Attribute.Relation<
+      'api::college.college',
+      'oneToMany',
+      'api::state.state'
+    >;
+    countries: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::country.country'
+    >;
+    brochure: Attribute.Media;
+    banner: Attribute.Media;
+    pincode: Attribute.Integer & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -921,6 +936,11 @@ export interface ApiCountryCountry extends Schema.CollectionType {
       'api::state.state'
     >;
     name: Attribute.String;
+    colleges: Attribute.Relation<
+      'api::country.country',
+      'manyToMany',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1121,6 +1141,11 @@ export interface ApiStateState extends Schema.CollectionType {
       'manyToOne',
       'api::country.country'
     >;
+    college: Attribute.Relation<
+      'api::state.state',
+      'manyToOne',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1164,6 +1189,21 @@ export interface ApiStreamStream extends Schema.CollectionType {
       'manyToMany',
       'api::college.college'
     >;
+    courses_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    colleges_description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    logo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

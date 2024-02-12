@@ -21,13 +21,8 @@
       "target": "api::college-type.college-type"
     },
     "collegeName": {
-      "type": "string"
-    },
-    "country": {
-      "type": "string"
-    },
-    "state": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "collegeLogo": {
       "type": "media",
@@ -39,9 +34,6 @@
         "videos",
         "audios"
       ]
-    },
-    "pincode": {
-      "type": "string"
     },
     "establishmentYear": {
       "type": "string"
@@ -58,9 +50,6 @@
       "target": "api::organization.organization",
       "mappedBy": "college"
     },
-    "city": {
-      "type": "string"
-    },
     "collegeDescription": {
       "type": "customField",
       "options": {
@@ -73,6 +62,42 @@
       "relation": "manyToMany",
       "target": "api::stream.stream",
       "mappedBy": "streams"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::city.city"
+    },
+    "states": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::state.state",
+      "mappedBy": "college"
+    },
+    "countries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::country.country",
+      "inversedBy": "colleges"
+    },
+    "brochure": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "banner": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "pincode": {
+      "type": "integer",
+      "required": true
     }
   }
 }

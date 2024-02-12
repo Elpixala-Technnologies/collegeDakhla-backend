@@ -4,7 +4,8 @@
   "info": {
     "singularName": "city",
     "pluralName": "cities",
-    "displayName": "city"
+    "displayName": "city",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
