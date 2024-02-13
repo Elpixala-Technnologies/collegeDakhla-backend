@@ -68,18 +68,6 @@
       "relation": "oneToOne",
       "target": "api::city.city"
     },
-    "states": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::state.state",
-      "mappedBy": "college"
-    },
-    "countries": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::country.country",
-      "inversedBy": "colleges"
-    },
     "brochure": {
       "type": "media",
       "multiple": false,
@@ -102,6 +90,18 @@
     },
     "pincode": {
       "type": "string"
+    },
+    "state": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::state.state",
+      "inversedBy": "colleges"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::country.country",
+      "inversedBy": "colleges"
     }
   }
 }

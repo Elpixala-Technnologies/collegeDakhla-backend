@@ -4,7 +4,8 @@
   "info": {
     "singularName": "state",
     "pluralName": "states",
-    "displayName": "state"
+    "displayName": "state",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,11 +27,11 @@
       "target": "api::country.country",
       "inversedBy": "states"
     },
-    "college": {
+    "colleges": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::college.college",
-      "inversedBy": "states"
+      "mappedBy": "state"
     }
   }
 }

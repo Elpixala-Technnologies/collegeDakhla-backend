@@ -857,20 +857,20 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'oneToOne',
       'api::city.city'
     >;
-    states: Attribute.Relation<
-      'api::college.college',
-      'oneToMany',
-      'api::state.state'
-    >;
-    countries: Attribute.Relation<
-      'api::college.college',
-      'manyToMany',
-      'api::country.country'
-    >;
     brochure: Attribute.Media;
     banner: Attribute.Media;
     isTopCollege: Attribute.Boolean & Attribute.DefaultTo<false>;
     pincode: Attribute.String;
+    state: Attribute.Relation<
+      'api::college.college',
+      'manyToOne',
+      'api::state.state'
+    >;
+    country: Attribute.Relation<
+      'api::college.college',
+      'manyToOne',
+      'api::country.country'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -926,6 +926,7 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     singularName: 'country';
     pluralName: 'countries';
     displayName: 'country';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -939,7 +940,7 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     name: Attribute.String;
     colleges: Attribute.Relation<
       'api::country.country',
-      'manyToMany',
+      'oneToMany',
       'api::college.college'
     >;
     createdAt: Attribute.DateTime;
@@ -1126,6 +1127,7 @@ export interface ApiStateState extends Schema.CollectionType {
     singularName: 'state';
     pluralName: 'states';
     displayName: 'state';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1142,9 +1144,9 @@ export interface ApiStateState extends Schema.CollectionType {
       'manyToOne',
       'api::country.country'
     >;
-    college: Attribute.Relation<
+    colleges: Attribute.Relation<
       'api::state.state',
-      'manyToOne',
+      'oneToMany',
       'api::college.college'
     >;
     createdAt: Attribute.DateTime;
