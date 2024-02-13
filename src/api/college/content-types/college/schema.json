@@ -96,13 +96,12 @@
         "images"
       ]
     },
-    "pincode": {
-      "type": "integer",
-      "required": true
-    },
     "isTopCollege": {
       "type": "boolean",
       "default": false
+    },
+    "pincode": {
+      "type": "string"
     }
   }
 }

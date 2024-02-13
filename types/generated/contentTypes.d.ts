@@ -869,8 +869,8 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
     >;
     brochure: Attribute.Media;
     banner: Attribute.Media;
-    pincode: Attribute.Integer & Attribute.Required;
     isTopCollege: Attribute.Boolean & Attribute.DefaultTo<false>;
+    pincode: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
