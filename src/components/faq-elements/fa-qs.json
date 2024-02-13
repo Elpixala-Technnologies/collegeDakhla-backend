@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_faq_elements_fa_qs",
+  "info": {
+    "displayName": "FAQs",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "Question": {
+      "type": "string"
+    },
+    "Answer": {
+      "type": "text"
+    }
+  }
+}

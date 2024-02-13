@@ -84,6 +84,7 @@ type College {
   countries(filters: CountryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CountryRelationResponseCollection
   createdAt: DateTime
   establishmentYear: String
+  isTopCollege: Boolean
   pincode: Int!
   publishedAt: DateTime
   rankedBy(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyRelationResponseCollection
@@ -118,6 +119,7 @@ input CollegeFiltersInput {
   createdAt: DateTimeFilterInput
   establishmentYear: StringFilterInput
   id: IDFilterInput
+  isTopCollege: BooleanFilterInput
   not: CollegeFiltersInput
   or: [CollegeFiltersInput]
   pincode: IntFilterInput
@@ -140,6 +142,7 @@ input CollegeInput {
   college_type: ID
   countries: [ID]
   establishmentYear: String
+  isTopCollege: Boolean
   pincode: Int
   publishedAt: DateTime
   rankedBy: [ID]
@@ -190,6 +193,26 @@ input CollegeTypeInput {
 
 type CollegeTypeRelationResponseCollection {
   data: [CollegeTypeEntity!]!
+}
+
+type ComponentFaqElementsFaQs {
+  Answer: String
+  Question: String
+  id: ID!
+}
+
+input ComponentFaqElementsFaQsFiltersInput {
+  Answer: StringFilterInput
+  Question: StringFilterInput
+  and: [ComponentFaqElementsFaQsFiltersInput]
+  not: ComponentFaqElementsFaQsFiltersInput
+  or: [ComponentFaqElementsFaQsFiltersInput]
+}
+
+input ComponentFaqElementsFaQsInput {
+  Answer: String
+  Question: String
+  id: ID
 }
 
 type ContentReleasesRelease {
@@ -534,7 +557,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentFaqElementsFaQs | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String

@@ -89,15 +89,20 @@
       ]
     },
     "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "pincode": {
       "type": "integer",
       "required": true
+    },
+    "isTopCollege": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
