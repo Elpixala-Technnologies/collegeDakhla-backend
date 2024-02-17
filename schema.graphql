@@ -73,7 +73,7 @@ type CityRelationResponseCollection {
 
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
-  banner: UploadFileEntityResponse
+  banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   brochure: UploadFileEntityResponse
   city: CityEntityResponse
   collegeDescription: String
@@ -132,7 +132,7 @@ input CollegeFiltersInput {
 
 input CollegeInput {
   approvedBy: [ID]
-  banner: ID
+  banner: [ID]
   brochure: ID
   city: ID
   collegeDescription: String
@@ -957,6 +957,7 @@ type State {
   colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   country: CountryEntityResponse
   createdAt: DateTime
+  logo: UploadFileEntityResponse
   name: String
   publishedAt: DateTime
   updatedAt: DateTime
@@ -994,6 +995,7 @@ input StateInput {
   cities: [ID]
   colleges: [ID]
   country: ID
+  logo: ID
   name: String
   publishedAt: DateTime
 }

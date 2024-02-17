@@ -1149,6 +1149,7 @@ export interface ApiStateState extends Schema.CollectionType {
       'oneToMany',
       'api::college.college'
     >;
+    logo: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

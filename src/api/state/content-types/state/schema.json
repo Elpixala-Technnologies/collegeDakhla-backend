@@ -32,6 +32,16 @@
       "relation": "oneToMany",
       "target": "api::college.college",
       "mappedBy": "state"
+    },
+    "logo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
