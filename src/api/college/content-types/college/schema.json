@@ -105,14 +105,10 @@
       "target": "api::country.country",
       "inversedBy": "colleges"
     },
-    "pageDynamicZone": {
-      "type": "dynamiczone",
-      "components": [
-        "navbar.navbar",
-        "page-section.data",
-        "gallery.gallery",
-        "faq.faq-s"
-      ]
+    "tab": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navbar.navbar"
     }
   }
 }

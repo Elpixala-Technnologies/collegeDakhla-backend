@@ -871,9 +871,7 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'manyToOne',
       'api::country.country'
     >;
-    pageDynamicZone: Attribute.DynamicZone<
-      ['navbar.navbar', 'page-section.data', 'gallery.gallery', 'faq.faq-s']
-    >;
+    tab: Attribute.Component<'navbar.navbar', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

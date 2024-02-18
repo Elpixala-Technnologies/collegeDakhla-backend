@@ -1,12 +1,29 @@
 {
   "collectionName": "components_navbar_navbars",
   "info": {
-    "displayName": "navbar"
+    "displayName": "navbar",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "navbarName": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "tabData": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page-data.data"
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": true,
+      "component": "gallery.gallery"
+    },
+    "faq": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq.faq-s"
     }
   }
 }

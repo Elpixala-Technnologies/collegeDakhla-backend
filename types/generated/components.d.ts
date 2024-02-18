@@ -15,9 +15,11 @@ export interface GalleryGallery extends Schema.Component {
   collectionName: 'components_gallery_galleries';
   info: {
     displayName: 'Gallery';
+    description: '';
   };
   attributes: {
     pageGallery: Attribute.Media;
+    heading: Attribute.String;
   };
 }
 
@@ -25,13 +27,17 @@ export interface NavbarNavbar extends Schema.Component {
   collectionName: 'components_navbar_navbars';
   info: {
     displayName: 'navbar';
+    description: '';
   };
   attributes: {
-    navbarName: Attribute.String;
+    navbarName: Attribute.String & Attribute.Required;
+    tabData: Attribute.Component<'page-data.data', true>;
+    gallery: Attribute.Component<'gallery.gallery', true>;
+    faq: Attribute.Component<'faq.faq-s', true>;
   };
 }
 
-export interface PageSectionData extends Schema.Component {
+export interface PageDataData extends Schema.Component {
   collectionName: 'components_page_section_data';
   info: {
     displayName: 'data';
@@ -46,6 +52,7 @@ export interface PageSectionData extends Schema.Component {
           preset: 'toolbar';
         }
       >;
+    subGallery: Attribute.Media;
   };
 }
 
@@ -55,7 +62,7 @@ declare module '@strapi/types' {
       'faq.faq-s': FaqFaqS;
       'gallery.gallery': GalleryGallery;
       'navbar.navbar': NavbarNavbar;
-      'page-section.data': PageSectionData;
+      'page-data.data': PageDataData;
     }
   }
 }
