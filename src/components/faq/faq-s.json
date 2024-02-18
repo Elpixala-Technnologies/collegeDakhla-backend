@@ -1,8 +1,7 @@
 {
-  "collectionName": "components_faq_elements_fa_qs",
+  "collectionName": "components_faq_faq_s",
   "info": {
-    "displayName": "FAQs",
-    "icon": "cube"
+    "displayName": "FAQ's"
   },
   "options": {},
   "attributes": {

@@ -22,12 +22,13 @@
     },
     "collegeName": {
       "type": "string",
-      "unique": true
+      "unique": true,
+      "required": true
     },
     "collegeLogo": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
@@ -79,7 +80,7 @@
     "banner": {
       "type": "media",
       "multiple": true,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
@@ -89,7 +90,8 @@
       "default": false
     },
     "pincode": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "state": {
       "type": "relation",
@@ -102,6 +104,15 @@
       "relation": "manyToOne",
       "target": "api::country.country",
       "inversedBy": "colleges"
+    },
+    "pageDynamicZone": {
+      "type": "dynamiczone",
+      "components": [
+        "navbar.navbar",
+        "page-section.data",
+        "gallery.gallery",
+        "faq.faq-s"
+      ]
     }
   }
 }

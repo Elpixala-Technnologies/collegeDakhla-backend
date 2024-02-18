@@ -827,8 +827,8 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'oneToOne',
       'api::college-type.college-type'
     >;
-    collegeName: Attribute.String & Attribute.Unique;
-    collegeLogo: Attribute.Media;
+    collegeName: Attribute.String & Attribute.Required & Attribute.Unique;
+    collegeLogo: Attribute.Media & Attribute.Required;
     establishmentYear: Attribute.String;
     rankedBy: Attribute.Relation<
       'api::college.college',
@@ -858,9 +858,9 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::city.city'
     >;
     brochure: Attribute.Media;
-    banner: Attribute.Media;
+    banner: Attribute.Media & Attribute.Required;
     isTopCollege: Attribute.Boolean & Attribute.DefaultTo<false>;
-    pincode: Attribute.String;
+    pincode: Attribute.String & Attribute.Required;
     state: Attribute.Relation<
       'api::college.college',
       'manyToOne',
@@ -870,6 +870,9 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::college.college',
       'manyToOne',
       'api::country.country'
+    >;
+    pageDynamicZone: Attribute.DynamicZone<
+      ['navbar.navbar', 'page-section.data', 'gallery.gallery', 'faq.faq-s']
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

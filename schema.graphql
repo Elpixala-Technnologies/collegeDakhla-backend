@@ -73,19 +73,20 @@ type CityRelationResponseCollection {
 
 type College {
   approvedBy(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationRelationResponseCollection
-  banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection!
   brochure: UploadFileEntityResponse
   city: CityEntityResponse
   collegeDescription: String
-  collegeLogo: UploadFileEntityResponse
-  collegeName: String
+  collegeLogo: UploadFileEntityResponse!
+  collegeName: String!
   collegeStreams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
   college_type: CollegeTypeEntityResponse
   country: CountryEntityResponse
   createdAt: DateTime
   establishmentYear: String
   isTopCollege: Boolean
-  pincode: String
+  pageDynamicZone: [CollegePageDynamicZoneDynamicZone]
+  pincode: String!
   publishedAt: DateTime
   rankedBy(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyRelationResponseCollection
   state: StateEntityResponse
@@ -143,12 +144,17 @@ input CollegeInput {
   country: ID
   establishmentYear: String
   isTopCollege: Boolean
+  pageDynamicZone: [CollegePageDynamicZoneDynamicZoneInput!]
   pincode: String
   publishedAt: DateTime
   rankedBy: [ID]
   state: ID
   url: String
 }
+
+union CollegePageDynamicZoneDynamicZone = ComponentFaqFaqS | ComponentGalleryGallery | ComponentNavbarNavbar | ComponentPageSectionData | Error
+
+scalar CollegePageDynamicZoneDynamicZoneInput
 
 type CollegeRelationResponseCollection {
   data: [CollegeEntity!]!
@@ -195,23 +201,76 @@ type CollegeTypeRelationResponseCollection {
   data: [CollegeTypeEntity!]!
 }
 
-type ComponentFaqElementsFaQs {
+type ComponentFaqFaqS {
   Answer: String
   Question: String
   id: ID!
 }
 
-input ComponentFaqElementsFaQsFiltersInput {
+input ComponentFaqFaqSFiltersInput {
   Answer: StringFilterInput
   Question: StringFilterInput
-  and: [ComponentFaqElementsFaQsFiltersInput]
-  not: ComponentFaqElementsFaQsFiltersInput
-  or: [ComponentFaqElementsFaQsFiltersInput]
+  and: [ComponentFaqFaqSFiltersInput]
+  not: ComponentFaqFaqSFiltersInput
+  or: [ComponentFaqFaqSFiltersInput]
 }
 
-input ComponentFaqElementsFaQsInput {
+input ComponentFaqFaqSInput {
   Answer: String
   Question: String
+  id: ID
+}
+
+type ComponentGalleryGallery {
+  id: ID!
+  pageGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+}
+
+input ComponentGalleryGalleryFiltersInput {
+  and: [ComponentGalleryGalleryFiltersInput]
+  not: ComponentGalleryGalleryFiltersInput
+  or: [ComponentGalleryGalleryFiltersInput]
+}
+
+input ComponentGalleryGalleryInput {
+  id: ID
+  pageGallery: [ID]
+}
+
+type ComponentNavbarNavbar {
+  id: ID!
+  navbarName: String
+}
+
+input ComponentNavbarNavbarFiltersInput {
+  and: [ComponentNavbarNavbarFiltersInput]
+  navbarName: StringFilterInput
+  not: ComponentNavbarNavbarFiltersInput
+  or: [ComponentNavbarNavbarFiltersInput]
+}
+
+input ComponentNavbarNavbarInput {
+  id: ID
+  navbarName: String
+}
+
+type ComponentPageSectionData {
+  data: String
+  heading: String!
+  id: ID!
+}
+
+input ComponentPageSectionDataFiltersInput {
+  and: [ComponentPageSectionDataFiltersInput]
+  data: StringFilterInput
+  heading: StringFilterInput
+  not: ComponentPageSectionDataFiltersInput
+  or: [ComponentPageSectionDataFiltersInput]
+}
+
+input ComponentPageSectionDataInput {
+  data: String
+  heading: String
   id: ID
 }
 
@@ -557,7 +616,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentFaqElementsFaQs | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentFaqFaqS | ComponentGalleryGallery | ComponentNavbarNavbar | ComponentPageSectionData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
