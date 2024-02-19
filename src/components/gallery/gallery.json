@@ -19,6 +19,11 @@
     },
     "heading": {
       "type": "string"
+    },
+    "navbar": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::navbar.navbar"
     }
   }
 }

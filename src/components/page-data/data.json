@@ -17,14 +17,10 @@
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "subGallery": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ]
+    "navbar": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::navbar.navbar"
     }
   }
 }

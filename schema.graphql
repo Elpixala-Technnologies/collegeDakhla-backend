@@ -85,11 +85,12 @@ type College {
   createdAt: DateTime
   establishmentYear: String
   isTopCollege: Boolean
+  navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarRelationResponseCollection
+  pageData: [CollegePageDataDynamicZone]
   pincode: String!
   publishedAt: DateTime
   rankedBy(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyRelationResponseCollection
   state: StateEntityResponse
-  tab(filters: ComponentNavbarNavbarFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentNavbarNavbar]
   updatedAt: DateTime
   url: String
 }
@@ -121,13 +122,13 @@ input CollegeFiltersInput {
   establishmentYear: StringFilterInput
   id: IDFilterInput
   isTopCollege: BooleanFilterInput
+  navbars: NavbarFiltersInput
   not: CollegeFiltersInput
   or: [CollegeFiltersInput]
   pincode: StringFilterInput
   publishedAt: DateTimeFilterInput
   rankedBy: RankingBodyFiltersInput
   state: StateFiltersInput
-  tab: ComponentNavbarNavbarFiltersInput
   updatedAt: DateTimeFilterInput
   url: StringFilterInput
 }
@@ -145,13 +146,18 @@ input CollegeInput {
   country: ID
   establishmentYear: String
   isTopCollege: Boolean
+  navbars: [ID]
+  pageData: [CollegePageDataDynamicZoneInput!]
   pincode: String
   publishedAt: DateTime
   rankedBy: [ID]
   state: ID
-  tab: [ComponentNavbarNavbarInput]
   url: String
 }
+
+union CollegePageDataDynamicZone = ComponentFaqFaqS | ComponentGalleryGallery | ComponentPageDataData | Error
+
+scalar CollegePageDataDynamicZoneInput
 
 type CollegeRelationResponseCollection {
   data: [CollegeEntity!]!
@@ -202,12 +208,14 @@ type ComponentFaqFaqS {
   Answer: String
   Question: String
   id: ID!
+  navbar: NavbarEntityResponse
 }
 
 input ComponentFaqFaqSFiltersInput {
   Answer: StringFilterInput
   Question: StringFilterInput
   and: [ComponentFaqFaqSFiltersInput]
+  navbar: NavbarFiltersInput
   not: ComponentFaqFaqSFiltersInput
   or: [ComponentFaqFaqSFiltersInput]
 }
@@ -216,17 +224,20 @@ input ComponentFaqFaqSInput {
   Answer: String
   Question: String
   id: ID
+  navbar: ID
 }
 
 type ComponentGalleryGallery {
   heading: String
   id: ID!
+  navbar: NavbarEntityResponse
   pageGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
 }
 
 input ComponentGalleryGalleryFiltersInput {
   and: [ComponentGalleryGalleryFiltersInput]
   heading: StringFilterInput
+  navbar: NavbarFiltersInput
   not: ComponentGalleryGalleryFiltersInput
   or: [ComponentGalleryGalleryFiltersInput]
 }
@@ -234,6 +245,7 @@ input ComponentGalleryGalleryFiltersInput {
 input ComponentGalleryGalleryInput {
   heading: String
   id: ID
+  navbar: ID
   pageGallery: [ID]
 }
 
@@ -267,13 +279,14 @@ type ComponentPageDataData {
   data: String
   heading: String!
   id: ID!
-  subGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  navbar: NavbarEntityResponse
 }
 
 input ComponentPageDataDataFiltersInput {
   and: [ComponentPageDataDataFiltersInput]
   data: StringFilterInput
   heading: StringFilterInput
+  navbar: NavbarFiltersInput
   not: ComponentPageDataDataFiltersInput
   or: [ComponentPageDataDataFiltersInput]
 }
@@ -282,7 +295,7 @@ input ComponentPageDataDataInput {
   data: String
   heading: String
   id: ID
-  subGallery: [ID]
+  navbar: ID
 }
 
 type ContentReleasesRelease {
@@ -627,7 +640,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentFaqFaqS | ComponentGalleryGallery | ComponentNavbarNavbar | ComponentPageDataData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentFaqFaqS | ComponentGalleryGallery | ComponentNavbarNavbar | ComponentPageDataData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseType | I18NLocale | Navbar | Organization | RankingBody | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
@@ -794,6 +807,7 @@ type Mutation {
   createCountry(data: CountryInput!): CountryEntityResponse
   createCourse(data: CourseInput!): CourseEntityResponse
   createCourseType(data: CourseTypeInput!): CourseTypeEntityResponse
+  createNavbar(data: NavbarInput!): NavbarEntityResponse
   createOrganization(data: OrganizationInput!): OrganizationEntityResponse
   createRankingBody(data: RankingBodyInput!): RankingBodyEntityResponse
   createState(data: StateInput!): StateEntityResponse
@@ -814,6 +828,7 @@ type Mutation {
   deleteCountry(id: ID!): CountryEntityResponse
   deleteCourse(id: ID!): CourseEntityResponse
   deleteCourseType(id: ID!): CourseTypeEntityResponse
+  deleteNavbar(id: ID!): NavbarEntityResponse
   deleteOrganization(id: ID!): OrganizationEntityResponse
   deleteRankingBody(id: ID!): RankingBodyEntityResponse
   deleteState(id: ID!): StateEntityResponse
@@ -852,6 +867,7 @@ type Mutation {
   updateCourse(data: CourseInput!, id: ID!): CourseEntityResponse
   updateCourseType(data: CourseTypeInput!, id: ID!): CourseTypeEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
+  updateNavbar(data: NavbarInput!, id: ID!): NavbarEntityResponse
   updateOrganization(data: OrganizationInput!, id: ID!): OrganizationEntityResponse
   updateRankingBody(data: RankingBodyInput!, id: ID!): RankingBodyEntityResponse
   updateState(data: StateInput!, id: ID!): StateEntityResponse
@@ -865,6 +881,50 @@ type Mutation {
   """Update an existing user"""
   updateUsersPermissionsUser(data: UsersPermissionsUserInput!, id: ID!): UsersPermissionsUserEntityResponse!
   upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
+}
+
+type Navbar {
+  colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
+  createdAt: DateTime
+  name: String
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type NavbarEntity {
+  attributes: Navbar
+  id: ID
+}
+
+type NavbarEntityResponse {
+  data: NavbarEntity
+}
+
+type NavbarEntityResponseCollection {
+  data: [NavbarEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input NavbarFiltersInput {
+  and: [NavbarFiltersInput]
+  colleges: CollegeFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: NavbarFiltersInput
+  or: [NavbarFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input NavbarInput {
+  colleges: [ID]
+  name: String
+  publishedAt: DateTime
+}
+
+type NavbarRelationResponseCollection {
+  data: [NavbarEntity!]!
 }
 
 type Organization {
@@ -953,6 +1013,8 @@ type Query {
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
   me: UsersPermissionsMe
+  navbar(id: ID): NavbarEntityResponse
+  navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarEntityResponseCollection
   organization(id: ID): OrganizationEntityResponse
   organizations(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationEntityResponseCollection
   rankingBodies(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyEntityResponseCollection

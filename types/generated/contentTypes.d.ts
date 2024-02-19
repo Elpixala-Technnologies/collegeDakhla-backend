@@ -871,7 +871,14 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'manyToOne',
       'api::country.country'
     >;
-    tab: Attribute.Component<'navbar.navbar', true>;
+    navbars: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::navbar.navbar'
+    >;
+    pageData: Attribute.DynamicZone<
+      ['page-data.data', 'gallery.gallery', 'faq.faq-s']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1031,6 +1038,41 @@ export interface ApiCourseTypeCourseType extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::course-type.course-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNavbarNavbar extends Schema.CollectionType {
+  collectionName: 'navbars';
+  info: {
+    singularName: 'navbar';
+    pluralName: 'navbars';
+    displayName: 'navbar';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    colleges: Attribute.Relation<
+      'api::navbar.navbar',
+      'manyToMany',
+      'api::college.college'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::navbar.navbar',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::navbar.navbar',
       'oneToOne',
       'admin::user'
     > &
@@ -1251,6 +1293,7 @@ declare module '@strapi/types' {
       'api::country.country': ApiCountryCountry;
       'api::course.course': ApiCourseCourse;
       'api::course-type.course-type': ApiCourseTypeCourseType;
+      'api::navbar.navbar': ApiNavbarNavbar;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
       'api::state.state': ApiStateState;
