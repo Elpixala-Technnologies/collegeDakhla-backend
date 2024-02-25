@@ -41,11 +41,6 @@
       "target": "api::stream.stream",
       "inversedBy": "courses"
     },
-    "courseData": {
-      "type": "component",
-      "repeatable": true,
-      "component": "common.data"
-    },
     "navbars": {
       "type": "relation",
       "relation": "manyToMany",

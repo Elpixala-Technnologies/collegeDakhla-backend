@@ -111,19 +111,19 @@
       "target": "api::navbar.navbar",
       "mappedBy": "colleges"
     },
-    "pageData": {
-      "type": "dynamiczone",
-      "components": [
-        "common.data",
-        "common.gallery",
-        "common.faq-s"
-      ]
-    },
     "news": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::new.new",
       "mappedBy": "colleges"
+    },
+    "pageData": {
+      "type": "dynamiczone",
+      "components": [
+        "common.tab-data",
+        "common.gallery",
+        "common.faq-s"
+      ]
     }
   }
 }

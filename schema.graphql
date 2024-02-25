@@ -158,7 +158,7 @@ input CollegeInput {
   url: String
 }
 
-union CollegePageDataDynamicZone = ComponentCommonData | ComponentCommonFaqS | ComponentCommonGallery | Error
+union CollegePageDataDynamicZone = ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonTabData | Error
 
 scalar CollegePageDataDynamicZoneInput
 
@@ -228,29 +228,6 @@ input ComponentCommonApplicationDateInput {
   endDate: Date
   id: ID
   startDate: Date
-}
-
-type ComponentCommonData {
-  data: String
-  heading: String!
-  id: ID!
-  navbar: NavbarEntityResponse
-}
-
-input ComponentCommonDataFiltersInput {
-  and: [ComponentCommonDataFiltersInput]
-  data: StringFilterInput
-  heading: StringFilterInput
-  navbar: NavbarFiltersInput
-  not: ComponentCommonDataFiltersInput
-  or: [ComponentCommonDataFiltersInput]
-}
-
-input ComponentCommonDataInput {
-  data: String
-  heading: String
-  id: ID
-  navbar: ID
 }
 
 type ComponentCommonDates {
@@ -336,6 +313,29 @@ input ComponentCommonResultDateInput {
   endDate: Date
   id: ID
   startDate: Date
+}
+
+type ComponentCommonTabData {
+  content: String
+  heading: String!
+  id: ID!
+  navbar: NavbarEntityResponse
+}
+
+input ComponentCommonTabDataFiltersInput {
+  and: [ComponentCommonTabDataFiltersInput]
+  content: StringFilterInput
+  heading: StringFilterInput
+  navbar: NavbarFiltersInput
+  not: ComponentCommonTabDataFiltersInput
+  or: [ComponentCommonTabDataFiltersInput]
+}
+
+input ComponentCommonTabDataInput {
+  content: String
+  heading: String
+  id: ID
+  navbar: ID
 }
 
 type ContentReleasesRelease {
@@ -480,7 +480,6 @@ type CountryRelationResponseCollection {
 type Course {
   banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   college_type: CollegeTypeEntityResponse
-  courseData(filters: ComponentCommonDataFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentCommonData]
   course_levels(filters: CourseLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseLevelRelationResponseCollection
   createdAt: DateTime
   isTopCourse: Boolean
@@ -511,7 +510,6 @@ type CourseEntityResponseCollection {
 input CourseFiltersInput {
   and: [CourseFiltersInput]
   college_type: CollegeTypeFiltersInput
-  courseData: ComponentCommonDataFiltersInput
   course_levels: CourseLevelFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
@@ -530,7 +528,6 @@ input CourseFiltersInput {
 input CourseInput {
   banner: [ID]
   college_type: ID
-  courseData: [ComponentCommonDataInput]
   course_levels: [ID]
   isTopCourse: Boolean
   logo: ID
@@ -705,7 +702,6 @@ type Exam {
   applicationDate: ComponentCommonApplicationDate
   banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   createdAt: DateTime
-  examData(filters: ComponentCommonDataFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentCommonData]
   examDate: ComponentCommonDates
   exam_levels(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelRelationResponseCollection
   exam_mode: ExamModeEntityResponse
@@ -738,7 +734,6 @@ input ExamFiltersInput {
   and: [ExamFiltersInput]
   applicationDate: ComponentCommonApplicationDateFiltersInput
   createdAt: DateTimeFilterInput
-  examData: ComponentCommonDataFiltersInput
   examDate: ComponentCommonDatesFiltersInput
   exam_levels: ExamLevelFiltersInput
   exam_mode: ExamModeFiltersInput
@@ -758,7 +753,6 @@ input ExamFiltersInput {
 input ExamInput {
   applicationDate: ComponentCommonApplicationDateInput
   banner: [ID]
-  examData: [ComponentCommonDataInput]
   examDate: ComponentCommonDatesInput
   exam_levels: [ID]
   exam_mode: ID
@@ -895,7 +889,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonData | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentCommonTabData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String

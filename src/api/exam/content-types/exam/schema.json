@@ -57,11 +57,6 @@
       "relation": "oneToOne",
       "target": "api::navbar.navbar"
     },
-    "examData": {
-      "type": "component",
-      "repeatable": true,
-      "component": "common.data"
-    },
     "applicationDate": {
       "type": "component",
       "repeatable": false,
