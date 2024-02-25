@@ -11,6 +11,25 @@ export interface CommonApplicationDate extends Schema.Component {
   };
 }
 
+export interface CommonData extends Schema.Component {
+  collectionName: 'components_page_section_data';
+  info: {
+    displayName: 'tabData';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String & Attribute.Required;
+    data: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    navbar: Attribute.Relation<'common.data', 'oneToOne', 'api::navbar.navbar'>;
+  };
+}
+
 export interface CommonDates extends Schema.Component {
   collectionName: 'components_common_dates';
   info: {
@@ -69,53 +88,15 @@ export interface CommonResultDate extends Schema.Component {
   };
 }
 
-export interface NavbarNavbar extends Schema.Component {
-  collectionName: 'components_navbar_navbars';
-  info: {
-    displayName: 'navbar';
-    description: '';
-  };
-  attributes: {
-    navbarName: Attribute.String & Attribute.Required;
-    tabData: Attribute.Component<'page-data.data', true>;
-    gallery: Attribute.Component<'common.gallery', true>;
-    faq: Attribute.Component<'common.faq-s', true>;
-  };
-}
-
-export interface PageDataData extends Schema.Component {
-  collectionName: 'components_page_section_data';
-  info: {
-    displayName: 'data';
-    description: '';
-  };
-  attributes: {
-    heading: Attribute.String & Attribute.Required;
-    data: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'toolbar';
-        }
-      >;
-    navbar: Attribute.Relation<
-      'page-data.data',
-      'oneToOne',
-      'api::navbar.navbar'
-    >;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'common.application-date': CommonApplicationDate;
+      'common.data': CommonData;
       'common.dates': CommonDates;
       'common.faq-s': CommonFaqS;
       'common.gallery': CommonGallery;
       'common.result-date': CommonResultDate;
-      'navbar.navbar': NavbarNavbar;
-      'page-data.data': PageDataData;
     }
   }
 }

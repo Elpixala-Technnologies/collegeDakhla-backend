@@ -877,7 +877,7 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::navbar.navbar'
     >;
     pageData: Attribute.DynamicZone<
-      ['page-data.data', 'common.gallery', 'common.faq-s']
+      ['common.data', 'common.gallery', 'common.faq-s']
     >;
     news: Attribute.Relation<
       'api::college.college',
@@ -1000,7 +1000,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'manyToMany',
       'api::stream.stream'
     >;
-    courseData: Attribute.Component<'page-data.data', true>;
+    courseData: Attribute.Component<'common.data', true>;
     navbars: Attribute.Relation<
       'api::course.course',
       'manyToMany',
@@ -1145,7 +1145,7 @@ export interface ApiExamExam extends Schema.CollectionType {
       'oneToOne',
       'api::navbar.navbar'
     >;
-    examData: Attribute.Component<'page-data.data', true>;
+    examData: Attribute.Component<'common.data', true>;
     applicationDate: Attribute.Component<'common.application-date'>;
     examDate: Attribute.Component<'common.dates'>;
     resultDate: Attribute.Component<'common.result-date'>;

@@ -44,7 +44,7 @@
     "courseData": {
       "type": "component",
       "repeatable": true,
-      "component": "page-data.data"
+      "component": "common.data"
     },
     "navbars": {
       "type": "relation",

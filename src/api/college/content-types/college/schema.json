@@ -114,7 +114,7 @@
     "pageData": {
       "type": "dynamiczone",
       "components": [
-        "page-data.data",
+        "common.data",
         "common.gallery",
         "common.faq-s"
       ]

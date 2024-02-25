@@ -60,7 +60,7 @@
     "examData": {
       "type": "component",
       "repeatable": true,
-      "component": "page-data.data"
+      "component": "common.data"
     },
     "applicationDate": {
       "type": "component",
