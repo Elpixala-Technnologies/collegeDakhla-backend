@@ -879,6 +879,11 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
     pageData: Attribute.DynamicZone<
       ['page-data.data', 'common.gallery', 'common.faq-s']
     >;
+    news: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::new.new'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1016,6 +1021,11 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'manyToMany',
       'api::course-level.course-level'
     >;
+    news: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::new.new'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1139,6 +1149,7 @@ export interface ApiExamExam extends Schema.CollectionType {
     applicationDate: Attribute.Component<'common.application-date'>;
     examDate: Attribute.Component<'common.dates'>;
     resultDate: Attribute.Component<'common.result-date'>;
+    news: Attribute.Relation<'api::exam.exam', 'manyToMany', 'api::new.new'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1255,6 +1266,49 @@ export interface ApiNavbarNavbar extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNewNew extends Schema.CollectionType {
+  collectionName: 'news';
+  info: {
+    singularName: 'new';
+    pluralName: 'news';
+    displayName: 'news';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    content: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    excerpt: Attribute.Text;
+    featuredImage: Attribute.Media;
+    colleges: Attribute.Relation<
+      'api::new.new',
+      'manyToMany',
+      'api::college.college'
+    >;
+    courses: Attribute.Relation<
+      'api::new.new',
+      'manyToMany',
+      'api::course.course'
+    >;
+    exams: Attribute.Relation<'api::new.new', 'manyToMany', 'api::exam.exam'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -1522,6 +1576,7 @@ declare module '@strapi/types' {
       'api::exam-level.exam-level': ApiExamLevelExamLevel;
       'api::exam-mode.exam-mode': ApiExamModeExamMode;
       'api::navbar.navbar': ApiNavbarNavbar;
+      'api::new.new': ApiNewNew;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
       'api::specialization.specialization': ApiSpecializationSpecialization;

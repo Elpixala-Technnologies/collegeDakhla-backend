@@ -118,6 +118,12 @@
         "common.gallery",
         "common.faq-s"
       ]
+    },
+    "news": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::new.new",
+      "mappedBy": "colleges"
     }
   }
 }

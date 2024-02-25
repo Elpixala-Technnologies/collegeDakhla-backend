@@ -76,6 +76,12 @@
       "type": "component",
       "repeatable": false,
       "component": "common.result-date"
+    },
+    "news": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::new.new",
+      "mappedBy": "exams"
     }
   }
 }
