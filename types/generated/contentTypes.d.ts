@@ -877,7 +877,7 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::navbar.navbar'
     >;
     pageData: Attribute.DynamicZone<
-      ['page-data.data', 'gallery.gallery', 'faq.faq-s']
+      ['page-data.data', 'common.gallery', 'common.faq-s']
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1092,6 +1092,126 @@ export interface ApiCourseTypeCourseType extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::course-type.course-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiExamExam extends Schema.CollectionType {
+  collectionName: 'exams';
+  info: {
+    singularName: 'exam';
+    pluralName: 'exams';
+    displayName: 'exam';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    title: Attribute.String;
+    logo: Attribute.Media;
+    banner: Attribute.Media;
+    streams: Attribute.Relation<
+      'api::exam.exam',
+      'manyToMany',
+      'api::stream.stream'
+    >;
+    exam_levels: Attribute.Relation<
+      'api::exam.exam',
+      'manyToMany',
+      'api::exam-level.exam-level'
+    >;
+    exam_mode: Attribute.Relation<
+      'api::exam.exam',
+      'manyToOne',
+      'api::exam-mode.exam-mode'
+    >;
+    navbar: Attribute.Relation<
+      'api::exam.exam',
+      'oneToOne',
+      'api::navbar.navbar'
+    >;
+    examData: Attribute.Component<'page-data.data', true>;
+    applicationDate: Attribute.Component<'common.application-date'>;
+    examDate: Attribute.Component<'common.dates'>;
+    resultDate: Attribute.Component<'common.result-date'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiExamLevelExamLevel extends Schema.CollectionType {
+  collectionName: 'exam_levels';
+  info: {
+    singularName: 'exam-level';
+    pluralName: 'exam-levels';
+    displayName: 'examLevel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    exams: Attribute.Relation<
+      'api::exam-level.exam-level',
+      'manyToMany',
+      'api::exam.exam'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::exam-level.exam-level',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::exam-level.exam-level',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiExamModeExamMode extends Schema.CollectionType {
+  collectionName: 'exam_modes';
+  info: {
+    singularName: 'exam-mode';
+    pluralName: 'exam-modes';
+    displayName: 'examMode';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    mode: Attribute.String;
+    exams: Attribute.Relation<
+      'api::exam-mode.exam-mode',
+      'oneToMany',
+      'api::exam.exam'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::exam-mode.exam-mode',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::exam-mode.exam-mode',
       'oneToOne',
       'admin::user'
     > &
@@ -1350,6 +1470,11 @@ export interface ApiStreamStream extends Schema.CollectionType {
       'manyToMany',
       'api::course.course'
     >;
+    exams: Attribute.Relation<
+      'api::stream.stream',
+      'manyToMany',
+      'api::exam.exam'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1393,6 +1518,9 @@ declare module '@strapi/types' {
       'api::course.course': ApiCourseCourse;
       'api::course-level.course-level': ApiCourseLevelCourseLevel;
       'api::course-type.course-type': ApiCourseTypeCourseType;
+      'api::exam.exam': ApiExamExam;
+      'api::exam-level.exam-level': ApiExamLevelExamLevel;
+      'api::exam-mode.exam-mode': ApiExamModeExamMode;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;

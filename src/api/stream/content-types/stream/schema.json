@@ -57,6 +57,12 @@
       "relation": "manyToMany",
       "target": "api::course.course",
       "mappedBy": "streams"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "streams"
     }
   }
 }

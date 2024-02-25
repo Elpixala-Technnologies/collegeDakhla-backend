@@ -155,7 +155,7 @@ input CollegeInput {
   url: String
 }
 
-union CollegePageDataDynamicZone = ComponentFaqFaqS | ComponentGalleryGallery | ComponentPageDataData | Error
+union CollegePageDataDynamicZone = ComponentCommonFaqS | ComponentCommonGallery | ComponentPageDataData | Error
 
 scalar CollegePageDataDynamicZoneInput
 
@@ -207,54 +207,114 @@ type CollegeTypeRelationResponseCollection {
   data: [CollegeTypeEntity!]!
 }
 
-type ComponentFaqFaqS {
+type ComponentCommonApplicationDate {
+  endDate: Date
+  id: ID!
+  startDate: Date
+}
+
+input ComponentCommonApplicationDateFiltersInput {
+  and: [ComponentCommonApplicationDateFiltersInput]
+  endDate: DateFilterInput
+  not: ComponentCommonApplicationDateFiltersInput
+  or: [ComponentCommonApplicationDateFiltersInput]
+  startDate: DateFilterInput
+}
+
+input ComponentCommonApplicationDateInput {
+  endDate: Date
+  id: ID
+  startDate: Date
+}
+
+type ComponentCommonDates {
+  endDate: Date
+  id: ID!
+  startDate: Date
+}
+
+input ComponentCommonDatesFiltersInput {
+  and: [ComponentCommonDatesFiltersInput]
+  endDate: DateFilterInput
+  not: ComponentCommonDatesFiltersInput
+  or: [ComponentCommonDatesFiltersInput]
+  startDate: DateFilterInput
+}
+
+input ComponentCommonDatesInput {
+  endDate: Date
+  id: ID
+  startDate: Date
+}
+
+type ComponentCommonFaqS {
   Answer: String
   Question: String
   id: ID!
   navbar: NavbarEntityResponse
 }
 
-input ComponentFaqFaqSFiltersInput {
+input ComponentCommonFaqSFiltersInput {
   Answer: StringFilterInput
   Question: StringFilterInput
-  and: [ComponentFaqFaqSFiltersInput]
+  and: [ComponentCommonFaqSFiltersInput]
   navbar: NavbarFiltersInput
-  not: ComponentFaqFaqSFiltersInput
-  or: [ComponentFaqFaqSFiltersInput]
+  not: ComponentCommonFaqSFiltersInput
+  or: [ComponentCommonFaqSFiltersInput]
 }
 
-input ComponentFaqFaqSInput {
+input ComponentCommonFaqSInput {
   Answer: String
   Question: String
   id: ID
   navbar: ID
 }
 
-type ComponentGalleryGallery {
+type ComponentCommonGallery {
   heading: String
   id: ID!
   navbar: NavbarEntityResponse
   pageGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
 }
 
-input ComponentGalleryGalleryFiltersInput {
-  and: [ComponentGalleryGalleryFiltersInput]
+input ComponentCommonGalleryFiltersInput {
+  and: [ComponentCommonGalleryFiltersInput]
   heading: StringFilterInput
   navbar: NavbarFiltersInput
-  not: ComponentGalleryGalleryFiltersInput
-  or: [ComponentGalleryGalleryFiltersInput]
+  not: ComponentCommonGalleryFiltersInput
+  or: [ComponentCommonGalleryFiltersInput]
 }
 
-input ComponentGalleryGalleryInput {
+input ComponentCommonGalleryInput {
   heading: String
   id: ID
   navbar: ID
   pageGallery: [ID]
 }
 
+type ComponentCommonResultDate {
+  endDate: Date
+  id: ID!
+  startDate: Date
+}
+
+input ComponentCommonResultDateFiltersInput {
+  and: [ComponentCommonResultDateFiltersInput]
+  endDate: DateFilterInput
+  not: ComponentCommonResultDateFiltersInput
+  or: [ComponentCommonResultDateFiltersInput]
+  startDate: DateFilterInput
+}
+
+input ComponentCommonResultDateInput {
+  endDate: Date
+  id: ID
+  startDate: Date
+}
+
 type ComponentNavbarNavbar {
-  faq(filters: ComponentFaqFaqSFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentFaqFaqS]
-  gallery(filters: ComponentGalleryGalleryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentGalleryGallery]
+  faq(filters: ComponentCommonFaqSFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentCommonFaqS]
+  gallery(filters: ComponentCommonGalleryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentCommonGallery]
   id: ID!
   navbarName: String!
   tabData(filters: ComponentPageDataDataFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentPageDataData]
@@ -262,8 +322,8 @@ type ComponentNavbarNavbar {
 
 input ComponentNavbarNavbarFiltersInput {
   and: [ComponentNavbarNavbarFiltersInput]
-  faq: ComponentFaqFaqSFiltersInput
-  gallery: ComponentGalleryGalleryFiltersInput
+  faq: ComponentCommonFaqSFiltersInput
+  gallery: ComponentCommonGalleryFiltersInput
   navbarName: StringFilterInput
   not: ComponentNavbarNavbarFiltersInput
   or: [ComponentNavbarNavbarFiltersInput]
@@ -271,8 +331,8 @@ input ComponentNavbarNavbarFiltersInput {
 }
 
 input ComponentNavbarNavbarInput {
-  faq: [ComponentFaqFaqSInput]
-  gallery: [ComponentGalleryGalleryInput]
+  faq: [ComponentCommonFaqSInput]
+  gallery: [ComponentCommonGalleryInput]
   id: ID
   navbarName: String
   tabData: [ComponentPageDataDataInput]
@@ -661,6 +721,166 @@ type Error {
   message: String
 }
 
+type Exam {
+  applicationDate: ComponentCommonApplicationDate
+  banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  createdAt: DateTime
+  examData(filters: ComponentPageDataDataFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentPageDataData]
+  examDate: ComponentCommonDates
+  exam_levels(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelRelationResponseCollection
+  exam_mode: ExamModeEntityResponse
+  logo: UploadFileEntityResponse
+  name: String
+  navbar: NavbarEntityResponse
+  publishedAt: DateTime
+  resultDate: ComponentCommonResultDate
+  streams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
+  title: String
+  updatedAt: DateTime
+}
+
+type ExamEntity {
+  attributes: Exam
+  id: ID
+}
+
+type ExamEntityResponse {
+  data: ExamEntity
+}
+
+type ExamEntityResponseCollection {
+  data: [ExamEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ExamFiltersInput {
+  and: [ExamFiltersInput]
+  applicationDate: ComponentCommonApplicationDateFiltersInput
+  createdAt: DateTimeFilterInput
+  examData: ComponentPageDataDataFiltersInput
+  examDate: ComponentCommonDatesFiltersInput
+  exam_levels: ExamLevelFiltersInput
+  exam_mode: ExamModeFiltersInput
+  id: IDFilterInput
+  name: StringFilterInput
+  navbar: NavbarFiltersInput
+  not: ExamFiltersInput
+  or: [ExamFiltersInput]
+  publishedAt: DateTimeFilterInput
+  resultDate: ComponentCommonResultDateFiltersInput
+  streams: StreamFiltersInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ExamInput {
+  applicationDate: ComponentCommonApplicationDateInput
+  banner: [ID]
+  examData: [ComponentPageDataDataInput]
+  examDate: ComponentCommonDatesInput
+  exam_levels: [ID]
+  exam_mode: ID
+  logo: ID
+  name: String
+  navbar: ID
+  publishedAt: DateTime
+  resultDate: ComponentCommonResultDateInput
+  streams: [ID]
+  title: String
+}
+
+type ExamLevel {
+  createdAt: DateTime
+  exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
+  name: String
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type ExamLevelEntity {
+  attributes: ExamLevel
+  id: ID
+}
+
+type ExamLevelEntityResponse {
+  data: ExamLevelEntity
+}
+
+type ExamLevelEntityResponseCollection {
+  data: [ExamLevelEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ExamLevelFiltersInput {
+  and: [ExamLevelFiltersInput]
+  createdAt: DateTimeFilterInput
+  exams: ExamFiltersInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: ExamLevelFiltersInput
+  or: [ExamLevelFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ExamLevelInput {
+  exams: [ID]
+  name: String
+  publishedAt: DateTime
+}
+
+type ExamLevelRelationResponseCollection {
+  data: [ExamLevelEntity!]!
+}
+
+type ExamMode {
+  createdAt: DateTime
+  exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
+  mode: String
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type ExamModeEntity {
+  attributes: ExamMode
+  id: ID
+}
+
+type ExamModeEntityResponse {
+  data: ExamModeEntity
+}
+
+type ExamModeEntityResponseCollection {
+  data: [ExamModeEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ExamModeFiltersInput {
+  and: [ExamModeFiltersInput]
+  createdAt: DateTimeFilterInput
+  exams: ExamFiltersInput
+  id: IDFilterInput
+  mode: StringFilterInput
+  not: ExamModeFiltersInput
+  or: [ExamModeFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ExamModeInput {
+  exams: [ID]
+  mode: String
+  publishedAt: DateTime
+}
+
+type ExamModeRelationResponseCollection {
+  data: [ExamModeEntity!]!
+}
+
+type ExamRelationResponseCollection {
+  data: [ExamEntity!]!
+}
+
 input FileInfoInput {
   alternativeText: String
   caption: String
@@ -692,7 +912,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentFaqFaqS | ComponentGalleryGallery | ComponentNavbarNavbar | ComponentPageDataData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | I18NLocale | Navbar | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentNavbarNavbar | ComponentPageDataData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
@@ -860,6 +1080,9 @@ type Mutation {
   createCourse(data: CourseInput!): CourseEntityResponse
   createCourseLevel(data: CourseLevelInput!): CourseLevelEntityResponse
   createCourseType(data: CourseTypeInput!): CourseTypeEntityResponse
+  createExam(data: ExamInput!): ExamEntityResponse
+  createExamLevel(data: ExamLevelInput!): ExamLevelEntityResponse
+  createExamMode(data: ExamModeInput!): ExamModeEntityResponse
   createNavbar(data: NavbarInput!): NavbarEntityResponse
   createOrganization(data: OrganizationInput!): OrganizationEntityResponse
   createRankingBody(data: RankingBodyInput!): RankingBodyEntityResponse
@@ -883,6 +1106,9 @@ type Mutation {
   deleteCourse(id: ID!): CourseEntityResponse
   deleteCourseLevel(id: ID!): CourseLevelEntityResponse
   deleteCourseType(id: ID!): CourseTypeEntityResponse
+  deleteExam(id: ID!): ExamEntityResponse
+  deleteExamLevel(id: ID!): ExamLevelEntityResponse
+  deleteExamMode(id: ID!): ExamModeEntityResponse
   deleteNavbar(id: ID!): NavbarEntityResponse
   deleteOrganization(id: ID!): OrganizationEntityResponse
   deleteRankingBody(id: ID!): RankingBodyEntityResponse
@@ -923,6 +1149,9 @@ type Mutation {
   updateCourse(data: CourseInput!, id: ID!): CourseEntityResponse
   updateCourseLevel(data: CourseLevelInput!, id: ID!): CourseLevelEntityResponse
   updateCourseType(data: CourseTypeInput!, id: ID!): CourseTypeEntityResponse
+  updateExam(data: ExamInput!, id: ID!): ExamEntityResponse
+  updateExamLevel(data: ExamLevelInput!, id: ID!): ExamLevelEntityResponse
+  updateExamMode(data: ExamModeInput!, id: ID!): ExamModeEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateNavbar(data: NavbarInput!, id: ID!): NavbarEntityResponse
   updateOrganization(data: OrganizationInput!, id: ID!): OrganizationEntityResponse
@@ -1073,6 +1302,12 @@ type Query {
   courseType(id: ID): CourseTypeEntityResponse
   courseTypes(filters: CourseTypeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseTypeEntityResponseCollection
   courses(filters: CourseFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseEntityResponseCollection
+  exam(id: ID): ExamEntityResponse
+  examLevel(id: ID): ExamLevelEntityResponse
+  examLevels(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelEntityResponseCollection
+  examMode(id: ID): ExamModeEntityResponse
+  examModes(filters: ExamModeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamModeEntityResponseCollection
+  exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamEntityResponseCollection
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
   me: UsersPermissionsMe
@@ -1251,6 +1486,7 @@ type Stream {
   courses_description: String
   createdAt: DateTime
   description: String
+  exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
   logo: UploadFileEntityResponse
   publishedAt: DateTime
   streamName: String
@@ -1279,6 +1515,7 @@ input StreamFiltersInput {
   courses_description: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  exams: ExamFiltersInput
   id: IDFilterInput
   not: StreamFiltersInput
   or: [StreamFiltersInput]
@@ -1293,6 +1530,7 @@ input StreamInput {
   courses: [ID]
   courses_description: String
   description: String
+  exams: [ID]
   logo: ID
   publishedAt: DateTime
   streamName: String

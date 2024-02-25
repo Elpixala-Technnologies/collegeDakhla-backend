@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exams",
+  "info": {
+    "singularName": "exam",
+    "pluralName": "exams",
+    "displayName": "exam",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "banner": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "streams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stream.stream",
+      "inversedBy": "exams"
+    },
+    "exam_levels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam-level.exam-level",
+      "inversedBy": "exams"
+    },
+    "exam_mode": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exam-mode.exam-mode",
+      "inversedBy": "exams"
+    },
+    "navbar": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::navbar.navbar"
+    },
+    "examData": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page-data.data"
+    },
+    "applicationDate": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.application-date"
+    },
+    "examDate": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.dates"
+    },
+    "resultDate": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.result-date"
+    }
+  }
+}

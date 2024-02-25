@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_common_dates",
+  "info": {
+    "displayName": "examDates",
+    "icon": "calendar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    }
+  }
+}

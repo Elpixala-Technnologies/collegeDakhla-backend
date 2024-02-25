@@ -1,6 +1,30 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface FaqFaqS extends Schema.Component {
+export interface CommonApplicationDate extends Schema.Component {
+  collectionName: 'components_common_application_dates';
+  info: {
+    displayName: 'applicationDate';
+  };
+  attributes: {
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
+  };
+}
+
+export interface CommonDates extends Schema.Component {
+  collectionName: 'components_common_dates';
+  info: {
+    displayName: 'examDates';
+    icon: 'calendar';
+    description: '';
+  };
+  attributes: {
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
+  };
+}
+
+export interface CommonFaqS extends Schema.Component {
   collectionName: 'components_faq_faq_s';
   info: {
     displayName: "FAQ's";
@@ -9,11 +33,15 @@ export interface FaqFaqS extends Schema.Component {
   attributes: {
     Question: Attribute.String;
     Answer: Attribute.Text;
-    navbar: Attribute.Relation<'faq.faq-s', 'oneToOne', 'api::navbar.navbar'>;
+    navbar: Attribute.Relation<
+      'common.faq-s',
+      'oneToOne',
+      'api::navbar.navbar'
+    >;
   };
 }
 
-export interface GalleryGallery extends Schema.Component {
+export interface CommonGallery extends Schema.Component {
   collectionName: 'components_gallery_galleries';
   info: {
     displayName: 'Gallery';
@@ -23,10 +51,21 @@ export interface GalleryGallery extends Schema.Component {
     pageGallery: Attribute.Media;
     heading: Attribute.String;
     navbar: Attribute.Relation<
-      'gallery.gallery',
+      'common.gallery',
       'oneToOne',
       'api::navbar.navbar'
     >;
+  };
+}
+
+export interface CommonResultDate extends Schema.Component {
+  collectionName: 'components_common_result_dates';
+  info: {
+    displayName: 'resultDate';
+  };
+  attributes: {
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
   };
 }
 
@@ -39,8 +78,8 @@ export interface NavbarNavbar extends Schema.Component {
   attributes: {
     navbarName: Attribute.String & Attribute.Required;
     tabData: Attribute.Component<'page-data.data', true>;
-    gallery: Attribute.Component<'gallery.gallery', true>;
-    faq: Attribute.Component<'faq.faq-s', true>;
+    gallery: Attribute.Component<'common.gallery', true>;
+    faq: Attribute.Component<'common.faq-s', true>;
   };
 }
 
@@ -70,8 +109,11 @@ export interface PageDataData extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'faq.faq-s': FaqFaqS;
-      'gallery.gallery': GalleryGallery;
+      'common.application-date': CommonApplicationDate;
+      'common.dates': CommonDates;
+      'common.faq-s': CommonFaqS;
+      'common.gallery': CommonGallery;
+      'common.result-date': CommonResultDate;
       'navbar.navbar': NavbarNavbar;
       'page-data.data': PageDataData;
     }

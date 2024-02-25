@@ -115,8 +115,8 @@
       "type": "dynamiczone",
       "components": [
         "page-data.data",
-        "gallery.gallery",
-        "faq.faq-s"
+        "common.gallery",
+        "common.faq-s"
       ]
     }
   }

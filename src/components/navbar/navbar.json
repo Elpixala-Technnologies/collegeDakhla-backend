@@ -18,12 +18,12 @@
     "gallery": {
       "type": "component",
       "repeatable": true,
-      "component": "gallery.gallery"
+      "component": "common.gallery"
     },
     "faq": {
       "type": "component",
       "repeatable": true,
-      "component": "faq.faq-s"
+      "component": "common.faq-s"
     }
   }
 }

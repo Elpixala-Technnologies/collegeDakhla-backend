@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exam_modes",
+  "info": {
+    "singularName": "exam-mode",
+    "pluralName": "exam-modes",
+    "displayName": "examMode"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mode": {
+      "type": "string"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "exam_mode"
+    }
+  }
+}
