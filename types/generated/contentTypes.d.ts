@@ -910,6 +910,11 @@ export interface ApiCollegeTypeCollegeType extends Schema.CollectionType {
   };
   attributes: {
     type: Attribute.String;
+    course: Attribute.Relation<
+      'api::college-type.college-type',
+      'oneToOne',
+      'api::course.course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -981,13 +986,35 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    course_url: Attribute.String;
-    course_link: Attribute.String;
-    course_logo: Attribute.Media;
-    course_types: Attribute.Relation<
+    isTopCourse: Attribute.Boolean & Attribute.DefaultTo<false>;
+    logo: Attribute.Media;
+    banner: Attribute.Media;
+    name: Attribute.String;
+    streams: Attribute.Relation<
       'api::course.course',
-      'oneToMany',
-      'api::course-type.course-type'
+      'manyToMany',
+      'api::stream.stream'
+    >;
+    courseData: Attribute.Component<'page-data.data', true>;
+    navbars: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::navbar.navbar'
+    >;
+    college_type: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'api::college-type.college-type'
+    >;
+    specializations: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::specialization.specialization'
+    >;
+    course_levels: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::course-level.course-level'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1007,6 +1034,41 @@ export interface ApiCourseCourse extends Schema.CollectionType {
   };
 }
 
+export interface ApiCourseLevelCourseLevel extends Schema.CollectionType {
+  collectionName: 'course_levels';
+  info: {
+    singularName: 'course-level';
+    pluralName: 'course-levels';
+    displayName: 'courseLevel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    levelName: Attribute.String;
+    courses: Attribute.Relation<
+      'api::course-level.course-level',
+      'manyToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course-level.course-level',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course-level.course-level',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCourseTypeCourseType extends Schema.CollectionType {
   collectionName: 'course_types';
   info: {
@@ -1018,15 +1080,7 @@ export interface ApiCourseTypeCourseType extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    fees: Attribute.String;
-    eligibility: Attribute.String;
-    application_date: Attribute.Date;
-    course: Attribute.Relation<
-      'api::course-type.course-type',
-      'manyToOne',
-      'api::course.course'
-    >;
+    type: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1061,6 +1115,11 @@ export interface ApiNavbarNavbar extends Schema.CollectionType {
       'api::navbar.navbar',
       'manyToMany',
       'api::college.college'
+    >;
+    courses: Attribute.Relation<
+      'api::navbar.navbar',
+      'manyToMany',
+      'api::course.course'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1164,6 +1223,41 @@ export interface ApiRankingBodyRankingBody extends Schema.CollectionType {
   };
 }
 
+export interface ApiSpecializationSpecialization extends Schema.CollectionType {
+  collectionName: 'specializations';
+  info: {
+    singularName: 'specialization';
+    pluralName: 'specializations';
+    displayName: 'specialization';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    courses: Attribute.Relation<
+      'api::specialization.specialization',
+      'manyToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::specialization.specialization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::specialization.specialization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStateState extends Schema.CollectionType {
   collectionName: 'states';
   info: {
@@ -1251,6 +1345,11 @@ export interface ApiStreamStream extends Schema.CollectionType {
         }
       >;
     logo: Attribute.Media;
+    courses: Attribute.Relation<
+      'api::stream.stream',
+      'manyToMany',
+      'api::course.course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1292,10 +1391,12 @@ declare module '@strapi/types' {
       'api::college-type.college-type': ApiCollegeTypeCollegeType;
       'api::country.country': ApiCountryCountry;
       'api::course.course': ApiCourseCourse;
+      'api::course-level.course-level': ApiCourseLevelCourseLevel;
       'api::course-type.course-type': ApiCourseTypeCourseType;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
+      'api::specialization.specialization': ApiSpecializationSpecialization;
       'api::state.state': ApiStateState;
       'api::stream.stream': ApiStreamStream;
     }

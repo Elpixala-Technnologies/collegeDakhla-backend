@@ -11,23 +11,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "type": {
       "type": "string"
-    },
-    "fees": {
-      "type": "string"
-    },
-    "eligibility": {
-      "type": "string"
-    },
-    "application_date": {
-      "type": "date"
-    },
-    "course": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::course.course",
-      "inversedBy": "course_types"
     }
   }
 }

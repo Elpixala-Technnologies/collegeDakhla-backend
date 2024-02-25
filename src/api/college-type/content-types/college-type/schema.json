@@ -14,6 +14,12 @@
   "attributes": {
     "type": {
       "type": "string"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course.course",
+      "mappedBy": "college_type"
     }
   }
 }

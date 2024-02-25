@@ -51,6 +51,12 @@
       ],
       "type": "media",
       "multiple": false
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "mappedBy": "streams"
     }
   }
 }

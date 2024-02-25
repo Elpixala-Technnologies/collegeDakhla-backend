@@ -12,28 +12,63 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "course_url": {
-      "type": "string"
+    "isTopCourse": {
+      "type": "boolean",
+      "default": false
     },
-    "course_link": {
-      "type": "string"
-    },
-    "course_logo": {
+    "logo": {
       "type": "media",
       "multiple": false,
       "required": false,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
-    "course_types": {
+    "banner": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "streams": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::course-type.course-type",
-      "mappedBy": "course"
+      "relation": "manyToMany",
+      "target": "api::stream.stream",
+      "inversedBy": "courses"
+    },
+    "courseData": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page-data.data"
+    },
+    "navbars": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::navbar.navbar",
+      "inversedBy": "courses"
+    },
+    "college_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::college-type.college-type",
+      "inversedBy": "course"
+    },
+    "specializations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::specialization.specialization",
+      "inversedBy": "courses"
+    },
+    "course_levels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course-level.course-level",
+      "inversedBy": "courses"
     }
   }
 }
