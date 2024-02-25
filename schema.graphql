@@ -297,7 +297,7 @@ input ComponentCommonFaqSInput {
 }
 
 type ComponentCommonGallery {
-  heading: String
+  heading: String!
   id: ID!
   navbar: NavbarEntityResponse
   pageGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection

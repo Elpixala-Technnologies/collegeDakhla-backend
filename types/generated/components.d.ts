@@ -68,7 +68,7 @@ export interface CommonGallery extends Schema.Component {
   };
   attributes: {
     pageGallery: Attribute.Media;
-    heading: Attribute.String;
+    heading: Attribute.String & Attribute.Required;
     navbar: Attribute.Relation<
       'common.gallery',
       'oneToOne',

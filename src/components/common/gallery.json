@@ -18,7 +18,8 @@
       ]
     },
     "heading": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "navbar": {
       "type": "relation",
