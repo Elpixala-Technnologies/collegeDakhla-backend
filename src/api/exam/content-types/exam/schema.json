@@ -77,6 +77,10 @@
       "relation": "manyToMany",
       "target": "api::new.new",
       "mappedBy": "exams"
+    },
+    "isFeaturedExam": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -1160,6 +1160,7 @@ export interface ApiExamExam extends Schema.CollectionType {
     examDate: Attribute.Component<'common.dates'>;
     resultDate: Attribute.Component<'common.result-date'>;
     news: Attribute.Relation<'api::exam.exam', 'manyToMany', 'api::new.new'>;
+    isFeaturedExam: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -717,6 +717,7 @@ type Exam {
   examDate: ComponentCommonDates
   exam_levels(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelRelationResponseCollection
   exam_mode: ExamModeEntityResponse
+  isFeaturedExam: Boolean
   logo: UploadFileEntityResponse
   name: String
   navbar: NavbarEntityResponse
@@ -750,6 +751,7 @@ input ExamFiltersInput {
   exam_levels: ExamLevelFiltersInput
   exam_mode: ExamModeFiltersInput
   id: IDFilterInput
+  isFeaturedExam: BooleanFilterInput
   name: StringFilterInput
   navbar: NavbarFiltersInput
   news: NewFiltersInput
@@ -768,6 +770,7 @@ input ExamInput {
   examDate: ComponentCommonDatesInput
   exam_levels: [ID]
   exam_mode: ID
+  isFeaturedExam: Boolean
   logo: ID
   name: String
   navbar: ID
