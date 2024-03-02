@@ -124,6 +124,12 @@
         "common.gallery",
         "common.faq-s"
       ]
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "mappedBy": "colleges"
     }
   }
 }

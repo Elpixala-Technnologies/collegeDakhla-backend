@@ -884,6 +884,11 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
     pageData: Attribute.DynamicZone<
       ['common.tab-data', 'common.gallery', 'common.faq-s']
     >;
+    courses: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::course.course'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1025,6 +1030,13 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'manyToMany',
       'api::new.new'
     >;
+    colleges: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::college.college'
+    >;
+    duration: Attribute.String;
+    fees: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

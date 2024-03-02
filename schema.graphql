@@ -82,6 +82,7 @@ type College {
   collegeStreams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
   college_type: CollegeTypeEntityResponse
   country: CountryEntityResponse
+  courses(filters: CourseFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseRelationResponseCollection
   createdAt: DateTime
   establishmentYear: String
   isTopCollege: Boolean
@@ -119,6 +120,7 @@ input CollegeFiltersInput {
   collegeStreams: StreamFiltersInput
   college_type: CollegeTypeFiltersInput
   country: CountryFiltersInput
+  courses: CourseFiltersInput
   createdAt: DateTimeFilterInput
   establishmentYear: StringFilterInput
   id: IDFilterInput
@@ -146,6 +148,7 @@ input CollegeInput {
   collegeStreams: [ID]
   college_type: ID
   country: ID
+  courses: [ID]
   establishmentYear: String
   isTopCollege: Boolean
   navbars: [ID]
@@ -480,8 +483,11 @@ type CountryRelationResponseCollection {
 type Course {
   banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   college_type: CollegeTypeEntityResponse
+  colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   course_levels(filters: CourseLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseLevelRelationResponseCollection
   createdAt: DateTime
+  duration: String
+  fees: String
   isTopCourse: Boolean
   logo: UploadFileEntityResponse
   name: String
@@ -510,8 +516,11 @@ type CourseEntityResponseCollection {
 input CourseFiltersInput {
   and: [CourseFiltersInput]
   college_type: CollegeTypeFiltersInput
+  colleges: CollegeFiltersInput
   course_levels: CourseLevelFiltersInput
   createdAt: DateTimeFilterInput
+  duration: StringFilterInput
+  fees: StringFilterInput
   id: IDFilterInput
   isTopCourse: BooleanFilterInput
   name: StringFilterInput
@@ -528,7 +537,10 @@ input CourseFiltersInput {
 input CourseInput {
   banner: [ID]
   college_type: ID
+  colleges: [ID]
   course_levels: [ID]
+  duration: String
+  fees: String
   isTopCourse: Boolean
   logo: ID
   name: String
