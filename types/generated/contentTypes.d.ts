@@ -996,7 +996,6 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    isTopCourse: Attribute.Boolean & Attribute.DefaultTo<false>;
     logo: Attribute.Media;
     banner: Attribute.Media;
     name: Attribute.String;
@@ -1020,11 +1019,6 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'manyToMany',
       'api::specialization.specialization'
     >;
-    course_levels: Attribute.Relation<
-      'api::course.course',
-      'manyToMany',
-      'api::course-level.course-level'
-    >;
     news: Attribute.Relation<
       'api::course.course',
       'manyToMany',
@@ -1037,6 +1031,12 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     >;
     duration: Attribute.String;
     fees: Attribute.String;
+    isFeaturedCourse: Attribute.Boolean & Attribute.DefaultTo<false>;
+    courseLevels: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::course-level.course-level'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1061,6 +1061,7 @@ export interface ApiCourseLevelCourseLevel extends Schema.CollectionType {
     singularName: 'course-level';
     pluralName: 'course-levels';
     displayName: 'courseLevel';
+    description: '';
   };
   options: {
     draftAndPublish: true;

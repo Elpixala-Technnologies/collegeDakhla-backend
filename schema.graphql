@@ -484,11 +484,11 @@ type Course {
   banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   college_type: CollegeTypeEntityResponse
   colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
-  course_levels(filters: CourseLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseLevelRelationResponseCollection
+  courseLevels(filters: CourseLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseLevelRelationResponseCollection
   createdAt: DateTime
   duration: String
   fees: String
-  isTopCourse: Boolean
+  isFeaturedCourse: Boolean
   logo: UploadFileEntityResponse
   name: String
   navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarRelationResponseCollection
@@ -517,12 +517,12 @@ input CourseFiltersInput {
   and: [CourseFiltersInput]
   college_type: CollegeTypeFiltersInput
   colleges: CollegeFiltersInput
-  course_levels: CourseLevelFiltersInput
+  courseLevels: CourseLevelFiltersInput
   createdAt: DateTimeFilterInput
   duration: StringFilterInput
   fees: StringFilterInput
   id: IDFilterInput
-  isTopCourse: BooleanFilterInput
+  isFeaturedCourse: BooleanFilterInput
   name: StringFilterInput
   navbars: NavbarFiltersInput
   news: NewFiltersInput
@@ -538,10 +538,10 @@ input CourseInput {
   banner: [ID]
   college_type: ID
   colleges: [ID]
-  course_levels: [ID]
+  courseLevels: [ID]
   duration: String
   fees: String
-  isTopCourse: Boolean
+  isFeaturedCourse: Boolean
   logo: ID
   name: String
   navbars: [ID]

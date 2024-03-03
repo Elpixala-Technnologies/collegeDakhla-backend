@@ -4,7 +4,8 @@
   "info": {
     "singularName": "course-level",
     "pluralName": "course-levels",
-    "displayName": "courseLevel"
+    "displayName": "courseLevel",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,7 +19,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::course.course",
-      "mappedBy": "course_levels"
+      "mappedBy": "courseLevels"
     }
   }
 }
