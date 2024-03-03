@@ -715,8 +715,8 @@ type Exam {
   banner(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   createdAt: DateTime
   examDate: ComponentCommonDates
-  exam_levels(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelRelationResponseCollection
-  exam_mode: ExamModeEntityResponse
+  examLevel(filters: ExamLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamLevelRelationResponseCollection
+  examMode: ExamModeEntityResponse
   isFeaturedExam: Boolean
   logo: UploadFileEntityResponse
   name: String
@@ -748,8 +748,8 @@ input ExamFiltersInput {
   applicationDate: ComponentCommonApplicationDateFiltersInput
   createdAt: DateTimeFilterInput
   examDate: ComponentCommonDatesFiltersInput
-  exam_levels: ExamLevelFiltersInput
-  exam_mode: ExamModeFiltersInput
+  examLevel: ExamLevelFiltersInput
+  examMode: ExamModeFiltersInput
   id: IDFilterInput
   isFeaturedExam: BooleanFilterInput
   name: StringFilterInput
@@ -768,8 +768,8 @@ input ExamInput {
   applicationDate: ComponentCommonApplicationDateInput
   banner: [ID]
   examDate: ComponentCommonDatesInput
-  exam_levels: [ID]
-  exam_mode: ID
+  examLevel: [ID]
+  examMode: ID
   isFeaturedExam: Boolean
   logo: ID
   name: String

@@ -40,18 +40,6 @@
       "target": "api::stream.stream",
       "inversedBy": "exams"
     },
-    "exam_levels": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::exam-level.exam-level",
-      "inversedBy": "exams"
-    },
-    "exam_mode": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::exam-mode.exam-mode",
-      "inversedBy": "exams"
-    },
     "navbar": {
       "type": "relation",
       "relation": "oneToOne",
@@ -81,6 +69,18 @@
     "isFeaturedExam": {
       "type": "boolean",
       "default": false
+    },
+    "examMode": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exam-mode.exam-mode",
+      "inversedBy": "exams"
+    },
+    "examLevel": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam-level.exam-level",
+      "inversedBy": "exams"
     }
   }
 }

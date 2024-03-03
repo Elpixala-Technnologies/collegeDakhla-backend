@@ -4,7 +4,8 @@
   "info": {
     "singularName": "exam-level",
     "pluralName": "exam-levels",
-    "displayName": "examLevel"
+    "displayName": "examLevel",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,7 +19,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::exam.exam",
-      "mappedBy": "exam_levels"
+      "mappedBy": "examLevel"
     }
   }
 }

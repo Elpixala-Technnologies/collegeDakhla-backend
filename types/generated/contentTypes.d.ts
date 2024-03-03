@@ -1141,16 +1141,6 @@ export interface ApiExamExam extends Schema.CollectionType {
       'manyToMany',
       'api::stream.stream'
     >;
-    exam_levels: Attribute.Relation<
-      'api::exam.exam',
-      'manyToMany',
-      'api::exam-level.exam-level'
-    >;
-    exam_mode: Attribute.Relation<
-      'api::exam.exam',
-      'manyToOne',
-      'api::exam-mode.exam-mode'
-    >;
     navbar: Attribute.Relation<
       'api::exam.exam',
       'oneToOne',
@@ -1161,6 +1151,16 @@ export interface ApiExamExam extends Schema.CollectionType {
     resultDate: Attribute.Component<'common.result-date'>;
     news: Attribute.Relation<'api::exam.exam', 'manyToMany', 'api::new.new'>;
     isFeaturedExam: Attribute.Boolean & Attribute.DefaultTo<false>;
+    examMode: Attribute.Relation<
+      'api::exam.exam',
+      'manyToOne',
+      'api::exam-mode.exam-mode'
+    >;
+    examLevel: Attribute.Relation<
+      'api::exam.exam',
+      'manyToMany',
+      'api::exam-level.exam-level'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1177,6 +1177,7 @@ export interface ApiExamLevelExamLevel extends Schema.CollectionType {
     singularName: 'exam-level';
     pluralName: 'exam-levels';
     displayName: 'examLevel';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1212,6 +1213,7 @@ export interface ApiExamModeExamMode extends Schema.CollectionType {
     singularName: 'exam-mode';
     pluralName: 'exam-modes';
     displayName: 'examMode';
+    description: '';
   };
   options: {
     draftAndPublish: true;

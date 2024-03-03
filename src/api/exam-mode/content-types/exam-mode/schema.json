@@ -4,7 +4,8 @@
   "info": {
     "singularName": "exam-mode",
     "pluralName": "exam-modes",
-    "displayName": "examMode"
+    "displayName": "examMode",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,7 +19,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exam.exam",
-      "mappedBy": "exam_mode"
+      "mappedBy": "examMode"
     }
   }
 }
