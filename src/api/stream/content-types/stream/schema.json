@@ -15,27 +15,20 @@
     "streamName": {
       "type": "string"
     },
-    "description": {
-      "type": "customField",
-      "options": {
-        "preset": "toolbar"
-      },
-      "customField": "plugin::ckeditor5.CKEditor"
-    },
-    "streams": {
+    "colleges": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::college.college",
       "inversedBy": "collegeStreams"
     },
-    "courses_description": {
+    "contentForCourses": {
       "type": "customField",
       "options": {
         "preset": "toolbar"
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "colleges_description": {
+    "contentForColleges": {
       "type": "customField",
       "options": {
         "preset": "toolbar"
@@ -43,14 +36,15 @@
       "customField": "plugin::ckeditor5.CKEditor"
     },
     "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "courses": {
       "type": "relation",
@@ -63,6 +57,13 @@
       "relation": "manyToMany",
       "target": "api::exam.exam",
       "mappedBy": "streams"
+    },
+    "contentForExams": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
     }
   }
 }

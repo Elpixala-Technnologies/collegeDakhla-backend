@@ -1542,16 +1542,16 @@ type StateRelationResponseCollection {
 }
 
 type Stream {
-  colleges_description: String
+  colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
+  contentForColleges: String
+  contentForCourses: String
+  contentForExams: String
   courses(filters: CourseFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseRelationResponseCollection
-  courses_description: String
   createdAt: DateTime
-  description: String
   exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
   logo: UploadFileEntityResponse
   publishedAt: DateTime
   streamName: String
-  streams(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -1571,31 +1571,31 @@ type StreamEntityResponseCollection {
 
 input StreamFiltersInput {
   and: [StreamFiltersInput]
-  colleges_description: StringFilterInput
+  colleges: CollegeFiltersInput
+  contentForColleges: StringFilterInput
+  contentForCourses: StringFilterInput
+  contentForExams: StringFilterInput
   courses: CourseFiltersInput
-  courses_description: StringFilterInput
   createdAt: DateTimeFilterInput
-  description: StringFilterInput
   exams: ExamFiltersInput
   id: IDFilterInput
   not: StreamFiltersInput
   or: [StreamFiltersInput]
   publishedAt: DateTimeFilterInput
   streamName: StringFilterInput
-  streams: CollegeFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input StreamInput {
-  colleges_description: String
+  colleges: [ID]
+  contentForColleges: String
+  contentForCourses: String
+  contentForExams: String
   courses: [ID]
-  courses_description: String
-  description: String
   exams: [ID]
   logo: ID
   publishedAt: DateTime
   streamName: String
-  streams: [ID]
 }
 
 type StreamRelationResponseCollection {

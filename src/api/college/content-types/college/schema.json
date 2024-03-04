@@ -59,12 +59,6 @@
       },
       "customField": "plugin::ckeditor5.CKEditor"
     },
-    "collegeStreams": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::stream.stream",
-      "mappedBy": "streams"
-    },
     "city": {
       "type": "relation",
       "relation": "oneToOne",
@@ -130,6 +124,12 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::course.course",
+      "mappedBy": "colleges"
+    },
+    "collegeStreams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stream.stream",
       "mappedBy": "colleges"
     }
   }

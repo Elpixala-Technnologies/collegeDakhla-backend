@@ -847,11 +847,6 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
-    collegeStreams: Attribute.Relation<
-      'api::college.college',
-      'manyToMany',
-      'api::stream.stream'
-    >;
     city: Attribute.Relation<
       'api::college.college',
       'oneToOne',
@@ -888,6 +883,11 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'api::college.college',
       'manyToMany',
       'api::course.course'
+    >;
+    collegeStreams: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::stream.stream'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1508,26 +1508,19 @@ export interface ApiStreamStream extends Schema.CollectionType {
   };
   attributes: {
     streamName: Attribute.String;
-    description: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'toolbar';
-        }
-      >;
-    streams: Attribute.Relation<
+    colleges: Attribute.Relation<
       'api::stream.stream',
       'manyToMany',
       'api::college.college'
     >;
-    courses_description: Attribute.RichText &
+    contentForCourses: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
         {
           preset: 'toolbar';
         }
       >;
-    colleges_description: Attribute.RichText &
+    contentForColleges: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
         {
@@ -1545,6 +1538,13 @@ export interface ApiStreamStream extends Schema.CollectionType {
       'manyToMany',
       'api::exam.exam'
     >;
+    contentForExams: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
