@@ -81,6 +81,10 @@
       "relation": "manyToMany",
       "target": "api::exam-level.exam-level",
       "inversedBy": "exams"
+    },
+    "url": {
+      "type": "string",
+      "unique": true
     }
   }
 }

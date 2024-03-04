@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "url": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "college_type": {
       "type": "relation",

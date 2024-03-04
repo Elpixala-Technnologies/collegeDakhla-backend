@@ -821,7 +821,7 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    url: Attribute.String;
+    url: Attribute.String & Attribute.Unique;
     college_type: Attribute.Relation<
       'api::college.college',
       'oneToOne',
@@ -1037,6 +1037,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'manyToMany',
       'api::course-level.course-level'
     >;
+    url: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1162,6 +1163,7 @@ export interface ApiExamExam extends Schema.CollectionType {
       'manyToMany',
       'api::exam-level.exam-level'
     >;
+    url: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
