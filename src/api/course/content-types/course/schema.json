@@ -86,6 +86,14 @@
     "url": {
       "type": "string",
       "unique": true
+    },
+    "pageData": {
+      "type": "dynamiczone",
+      "components": [
+        "common.tab-data",
+        "common.gallery",
+        "common.faq-s"
+      ]
     }
   }
 }

@@ -1038,6 +1038,9 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'api::course-level.course-level'
     >;
     url: Attribute.String & Attribute.Unique;
+    pageData: Attribute.DynamicZone<
+      ['common.tab-data', 'common.gallery', 'common.faq-s']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1143,9 +1146,9 @@ export interface ApiExamExam extends Schema.CollectionType {
       'manyToMany',
       'api::stream.stream'
     >;
-    navbar: Attribute.Relation<
+    navbars: Attribute.Relation<
       'api::exam.exam',
-      'oneToOne',
+      'manyToMany',
       'api::navbar.navbar'
     >;
     applicationDate: Attribute.Component<'common.application-date'>;
@@ -1164,6 +1167,9 @@ export interface ApiExamExam extends Schema.CollectionType {
       'api::exam-level.exam-level'
     >;
     url: Attribute.String & Attribute.Unique;
+    pageData: Attribute.DynamicZone<
+      ['common.tab-data', 'common.gallery', 'common.faq-s']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1267,6 +1273,11 @@ export interface ApiNavbarNavbar extends Schema.CollectionType {
       'api::navbar.navbar',
       'manyToMany',
       'api::course.course'
+    >;
+    exams: Attribute.Relation<
+      'api::navbar.navbar',
+      'manyToMany',
+      'api::exam.exam'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

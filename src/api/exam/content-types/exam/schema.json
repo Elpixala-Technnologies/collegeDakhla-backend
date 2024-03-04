@@ -40,10 +40,11 @@
       "target": "api::stream.stream",
       "inversedBy": "exams"
     },
-    "navbar": {
+    "navbars": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::navbar.navbar"
+      "relation": "manyToMany",
+      "target": "api::navbar.navbar",
+      "inversedBy": "exams"
     },
     "applicationDate": {
       "type": "component",
@@ -85,6 +86,14 @@
     "url": {
       "type": "string",
       "unique": true
+    },
+    "pageData": {
+      "type": "dynamiczone",
+      "components": [
+        "common.tab-data",
+        "common.gallery",
+        "common.faq-s"
+      ]
     }
   }
 }

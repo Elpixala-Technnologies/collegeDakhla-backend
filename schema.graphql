@@ -493,6 +493,7 @@ type Course {
   name: String
   navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarRelationResponseCollection
   news(filters: NewFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewRelationResponseCollection
+  pageData: [CoursePageDataDynamicZone]
   publishedAt: DateTime
   specializations(filters: SpecializationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): SpecializationRelationResponseCollection
   streams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
@@ -548,6 +549,7 @@ input CourseInput {
   name: String
   navbars: [ID]
   news: [ID]
+  pageData: [CoursePageDataDynamicZoneInput!]
   publishedAt: DateTime
   specializations: [ID]
   streams: [ID]
@@ -597,6 +599,10 @@ input CourseLevelInput {
 type CourseLevelRelationResponseCollection {
   data: [CourseLevelEntity!]!
 }
+
+union CoursePageDataDynamicZone = ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonTabData | Error
+
+scalar CoursePageDataDynamicZoneInput
 
 type CourseRelationResponseCollection {
   data: [CourseEntity!]!
@@ -723,8 +729,9 @@ type Exam {
   isFeaturedExam: Boolean
   logo: UploadFileEntityResponse
   name: String
-  navbar: NavbarEntityResponse
+  navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarRelationResponseCollection
   news(filters: NewFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewRelationResponseCollection
+  pageData: [ExamPageDataDynamicZone]
   publishedAt: DateTime
   resultDate: ComponentCommonResultDate
   streams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamRelationResponseCollection
@@ -757,7 +764,7 @@ input ExamFiltersInput {
   id: IDFilterInput
   isFeaturedExam: BooleanFilterInput
   name: StringFilterInput
-  navbar: NavbarFiltersInput
+  navbars: NavbarFiltersInput
   news: NewFiltersInput
   not: ExamFiltersInput
   or: [ExamFiltersInput]
@@ -778,8 +785,9 @@ input ExamInput {
   isFeaturedExam: Boolean
   logo: ID
   name: String
-  navbar: ID
+  navbars: [ID]
   news: [ID]
+  pageData: [ExamPageDataDynamicZoneInput!]
   publishedAt: DateTime
   resultDate: ComponentCommonResultDateInput
   streams: [ID]
@@ -874,6 +882,10 @@ input ExamModeInput {
 type ExamModeRelationResponseCollection {
   data: [ExamModeEntity!]!
 }
+
+union ExamPageDataDynamicZone = ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonTabData | Error
+
+scalar ExamPageDataDynamicZoneInput
 
 type ExamRelationResponseCollection {
   data: [ExamEntity!]!
@@ -1175,6 +1187,7 @@ type Navbar {
   colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   courses(filters: CourseFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseRelationResponseCollection
   createdAt: DateTime
+  exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
   name: String
   publishedAt: DateTime
   updatedAt: DateTime
@@ -1199,6 +1212,7 @@ input NavbarFiltersInput {
   colleges: CollegeFiltersInput
   courses: CourseFiltersInput
   createdAt: DateTimeFilterInput
+  exams: ExamFiltersInput
   id: IDFilterInput
   name: StringFilterInput
   not: NavbarFiltersInput
@@ -1210,6 +1224,7 @@ input NavbarFiltersInput {
 input NavbarInput {
   colleges: [ID]
   courses: [ID]
+  exams: [ID]
   name: String
   publishedAt: DateTime
 }
