@@ -23,7 +23,8 @@
       "customField": "plugin::ckeditor5.CKEditor"
     },
     "excerpt": {
-      "type": "text"
+      "type": "text",
+      "maxLength": 125
     },
     "featuredImage": {
       "type": "media",
@@ -49,6 +50,12 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::exam.exam",
+      "inversedBy": "news"
+    },
+    "newsCategories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::news-category.news-category",
       "inversedBy": "news"
     }
   }
