@@ -485,6 +485,7 @@ type Course {
   college_type: CollegeTypeEntityResponse
   colleges(filters: CollegeFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CollegeRelationResponseCollection
   courseLevels(filters: CourseLevelFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): CourseLevelRelationResponseCollection
+  courseType: CourseTypeEntityResponse
   createdAt: DateTime
   duration: String
   fees: String
@@ -520,6 +521,7 @@ input CourseFiltersInput {
   college_type: CollegeTypeFiltersInput
   colleges: CollegeFiltersInput
   courseLevels: CourseLevelFiltersInput
+  courseType: CourseTypeFiltersInput
   createdAt: DateTimeFilterInput
   duration: StringFilterInput
   fees: StringFilterInput
@@ -542,6 +544,7 @@ input CourseInput {
   college_type: ID
   colleges: [ID]
   courseLevels: [ID]
+  courseType: ID
   duration: String
   fees: String
   isFeaturedCourse: Boolean
@@ -922,7 +925,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentCommonTabData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentCommonTabData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | NewsCategory | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
@@ -1095,6 +1098,7 @@ type Mutation {
   createExamMode(data: ExamModeInput!): ExamModeEntityResponse
   createNavbar(data: NavbarInput!): NavbarEntityResponse
   createNew(data: NewInput!): NewEntityResponse
+  createNewsCategory(data: NewsCategoryInput!): NewsCategoryEntityResponse
   createOrganization(data: OrganizationInput!): OrganizationEntityResponse
   createRankingBody(data: RankingBodyInput!): RankingBodyEntityResponse
   createSpecialization(data: SpecializationInput!): SpecializationEntityResponse
@@ -1122,6 +1126,7 @@ type Mutation {
   deleteExamMode(id: ID!): ExamModeEntityResponse
   deleteNavbar(id: ID!): NavbarEntityResponse
   deleteNew(id: ID!): NewEntityResponse
+  deleteNewsCategory(id: ID!): NewsCategoryEntityResponse
   deleteOrganization(id: ID!): OrganizationEntityResponse
   deleteRankingBody(id: ID!): RankingBodyEntityResponse
   deleteSpecialization(id: ID!): SpecializationEntityResponse
@@ -1167,6 +1172,7 @@ type Mutation {
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateNavbar(data: NavbarInput!, id: ID!): NavbarEntityResponse
   updateNew(data: NewInput!, id: ID!): NewEntityResponse
+  updateNewsCategory(data: NewsCategoryInput!, id: ID!): NewsCategoryEntityResponse
   updateOrganization(data: OrganizationInput!, id: ID!): OrganizationEntityResponse
   updateRankingBody(data: RankingBodyInput!, id: ID!): RankingBodyEntityResponse
   updateSpecialization(data: SpecializationInput!, id: ID!): SpecializationEntityResponse
@@ -1241,6 +1247,7 @@ type New {
   exams(filters: ExamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ExamRelationResponseCollection
   excerpt: String
   featuredImage(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  newsCategories(filters: NewsCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewsCategoryRelationResponseCollection
   publishedAt: DateTime
   title: String
   updatedAt: DateTime
@@ -1269,6 +1276,7 @@ input NewFiltersInput {
   exams: ExamFiltersInput
   excerpt: StringFilterInput
   id: IDFilterInput
+  newsCategories: NewsCategoryFiltersInput
   not: NewFiltersInput
   or: [NewFiltersInput]
   publishedAt: DateTimeFilterInput
@@ -1283,12 +1291,57 @@ input NewInput {
   exams: [ID]
   excerpt: String
   featuredImage: [ID]
+  newsCategories: [ID]
   publishedAt: DateTime
   title: String
 }
 
 type NewRelationResponseCollection {
   data: [NewEntity!]!
+}
+
+type NewsCategory {
+  category: String
+  createdAt: DateTime
+  news(filters: NewFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewRelationResponseCollection
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type NewsCategoryEntity {
+  attributes: NewsCategory
+  id: ID
+}
+
+type NewsCategoryEntityResponse {
+  data: NewsCategoryEntity
+}
+
+type NewsCategoryEntityResponseCollection {
+  data: [NewsCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input NewsCategoryFiltersInput {
+  and: [NewsCategoryFiltersInput]
+  category: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  news: NewFiltersInput
+  not: NewsCategoryFiltersInput
+  or: [NewsCategoryFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input NewsCategoryInput {
+  category: String
+  news: [ID]
+  publishedAt: DateTime
+}
+
+type NewsCategoryRelationResponseCollection {
+  data: [NewsCategoryEntity!]!
 }
 
 type Organization {
@@ -1389,6 +1442,8 @@ type Query {
   navbars(filters: NavbarFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NavbarEntityResponseCollection
   new(id: ID): NewEntityResponse
   news(filters: NewFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewEntityResponseCollection
+  newsCategories(filters: NewsCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): NewsCategoryEntityResponseCollection
+  newsCategory(id: ID): NewsCategoryEntityResponse
   organization(id: ID): OrganizationEntityResponse
   organizations(filters: OrganizationFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): OrganizationEntityResponseCollection
   rankingBodies(filters: RankingBodyFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): RankingBodyEntityResponseCollection

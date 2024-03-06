@@ -1041,6 +1041,11 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     pageData: Attribute.DynamicZone<
       ['common.tab-data', 'common.gallery', 'common.faq-s']
     >;
+    courseType: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'api::course-type.course-type'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1317,7 +1322,10 @@ export interface ApiNewNew extends Schema.CollectionType {
           preset: 'toolbar';
         }
       >;
-    excerpt: Attribute.Text;
+    excerpt: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 125;
+      }>;
     featuredImage: Attribute.Media;
     colleges: Attribute.Relation<
       'api::new.new',
@@ -1330,12 +1338,53 @@ export interface ApiNewNew extends Schema.CollectionType {
       'api::course.course'
     >;
     exams: Attribute.Relation<'api::new.new', 'manyToMany', 'api::exam.exam'>;
+    newsCategories: Attribute.Relation<
+      'api::new.new',
+      'manyToMany',
+      'api::news-category.news-category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNewsCategoryNewsCategory extends Schema.CollectionType {
+  collectionName: 'news_categories';
+  info: {
+    singularName: 'news-category';
+    pluralName: 'news-categories';
+    displayName: 'newsCategory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Attribute.String;
+    news: Attribute.Relation<
+      'api::news-category.news-category',
+      'manyToMany',
+      'api::new.new'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::news-category.news-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::news-category.news-category',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1604,6 +1653,7 @@ declare module '@strapi/types' {
       'api::exam-mode.exam-mode': ApiExamModeExamMode;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::new.new': ApiNewNew;
+      'api::news-category.news-category': ApiNewsCategoryNewsCategory;
       'api::organization.organization': ApiOrganizationOrganization;
       'api::ranking-body.ranking-body': ApiRankingBodyRankingBody;
       'api::specialization.specialization': ApiSpecializationSpecialization;

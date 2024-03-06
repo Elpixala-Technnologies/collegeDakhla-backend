@@ -94,6 +94,11 @@
         "common.gallery",
         "common.faq-s"
       ]
+    },
+    "courseType": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course-type.course-type"
     }
   }
 }
