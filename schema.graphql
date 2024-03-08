@@ -925,7 +925,7 @@ input FloatFilterInput {
   startsWith: Float
 }
 
-union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentCommonTabData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | NewsCategory | Organization | RankingBody | Specialization | State | Stream | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = City | College | CollegeType | ComponentCommonApplicationDate | ComponentCommonDates | ComponentCommonFaqS | ComponentCommonGallery | ComponentCommonResultDate | ComponentCommonTabData | ContentReleasesRelease | ContentReleasesReleaseAction | Country | Course | CourseLevel | CourseType | Exam | ExamLevel | ExamMode | I18NLocale | Navbar | New | NewsCategory | Organization | RankingBody | Specialization | State | Stream | Testimonial | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type I18NLocale {
   code: String
@@ -1104,6 +1104,7 @@ type Mutation {
   createSpecialization(data: SpecializationInput!): SpecializationEntityResponse
   createState(data: StateInput!): StateEntityResponse
   createStream(data: StreamInput!): StreamEntityResponse
+  createTestimonial(data: TestimonialInput!): TestimonialEntityResponse
   createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
   createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
 
@@ -1132,6 +1133,7 @@ type Mutation {
   deleteSpecialization(id: ID!): SpecializationEntityResponse
   deleteState(id: ID!): StateEntityResponse
   deleteStream(id: ID!): StreamEntityResponse
+  deleteTestimonial(id: ID!): TestimonialEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
 
@@ -1178,6 +1180,7 @@ type Mutation {
   updateSpecialization(data: SpecializationInput!, id: ID!): SpecializationEntityResponse
   updateState(data: StateInput!, id: ID!): StateEntityResponse
   updateStream(data: StreamInput!, id: ID!): StreamEntityResponse
+  updateTestimonial(data: TestimonialInput!, id: ID!): TestimonialEntityResponse
   updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
   updateUploadFolder(data: UploadFolderInput!, id: ID!): UploadFolderEntityResponse
 
@@ -1454,6 +1457,8 @@ type Query {
   states(filters: StateFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StateEntityResponseCollection
   stream(id: ID): StreamEntityResponse
   streams(filters: StreamFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): StreamEntityResponseCollection
+  testimonial(id: ID): TestimonialEntityResponse
+  testimonials(filters: TestimonialFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): TestimonialEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse
   uploadFiles(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileEntityResponseCollection
   uploadFolder(id: ID): UploadFolderEntityResponse
@@ -1695,6 +1700,57 @@ input StringFilterInput {
   null: Boolean
   or: [String]
   startsWith: String
+}
+
+type Testimonial {
+  banner: UploadFileEntityResponse
+  college: CollegeEntityResponse
+  comment: String
+  commentBy: String
+  createdAt: DateTime
+  logo: UploadFileEntityResponse
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type TestimonialEntity {
+  attributes: Testimonial
+  id: ID
+}
+
+type TestimonialEntityResponse {
+  data: TestimonialEntity
+}
+
+type TestimonialEntityResponseCollection {
+  data: [TestimonialEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input TestimonialFiltersInput {
+  and: [TestimonialFiltersInput]
+  college: CollegeFiltersInput
+  comment: StringFilterInput
+  commentBy: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: TestimonialFiltersInput
+  or: [TestimonialFiltersInput]
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input TestimonialInput {
+  banner: ID
+  college: ID
+  comment: String
+  commentBy: String
+  logo: ID
+  publishedAt: DateTime
+}
+
+type TestimonialRelationResponseCollection {
+  data: [TestimonialEntity!]!
 }
 
 """A time string with format HH:mm:ss.SSS"""
