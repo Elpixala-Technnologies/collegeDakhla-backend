@@ -23,6 +23,7 @@
     "react-router-dom": "5.3.4",
     "strapi-plugin-import-export-entries": "^1.23.1",
     "strapi-plugin-netlify-deployments": "^2.0.2",
+    "strapi-provider-upload-do": "^3.6.9",
     "styled-components": "5.3.3"
   },
   "author": {
